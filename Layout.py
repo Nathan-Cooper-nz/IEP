@@ -18,25 +18,26 @@ class Application(Frame):
         Label(text="Waveform", width=sectionWd, height=sectionHt).grid(row=curRow, column=1)
         curRow+=1
         
-        Label(text="Voltage", width=sectionWd, height=sectionHt).grid(row=curRow,column=1)
+        Label(text="Voltage", width=sectionWd, height=sectionHt).grid(row=curRow,column=1)##voltage slider
         Scale(from_=0, to=5, orient=HORIZONTAL).grid(row=curRow,column=2)
         curRow+=1
 
-        Label(text="Hertz", width=sectionWd, height=sectionHt).grid(row=curRow,column=1)
+        Label(text="Frequency", width=sectionWd, height=sectionHt).grid(row=curRow,column=1)##freq slider
         Scale(from_=0, to=5, orient=HORIZONTAL).grid(row=curRow,column=2)
         curRow+=1        
 
-        Label(text="Period", width=sectionWd, height=sectionHt).grid(row=curRow,column=1)
+        Label(text="Period", width=sectionWd, height=sectionHt).grid(row=curRow,column=1)##period slider
         Scale(from_=0, to=5, orient=HORIZONTAL).grid(row=curRow,column=2)
         curRow+=1
 
-        Label(text="Osciloscope", relief=RIDGE,
-              width=100,height=30).grid(row=0,column=0,rowspan=curRow)
-        Label(text="FunctionGen", relief=RIDGE,
-              width=100,height=10).grid(row=curRow,column=0)
+        Label(text="FG", relief=RIDGE, width=50, height=15).grid(row=curRow,column=1)##insert the funcgen window
+        curRow+=1
+
+        Label(text="Oscilloscope", relief=RIDGE,width=100,height=30).grid(row=0,column=0,rowspan=curRow)
+        Label(text="TABS", relief=RIDGE,width=100,height=10).grid(row=curRow,column=0)
 
         
-root = Tk()                  #Create Applcation Window
+root = Tk()                  #Create Application Window
 
 app = Application(root)
 
