@@ -23,9 +23,7 @@ public class IEPframe extends JFrame {
         frame.setJMenuBar(bar);
         //Trying to figure out how to make the layout nicer
         JPanel panel = new JPanel();
-        GridLayout layout = new GridLayout(2,2);
-        layout.setHgap(0);
-        layout.setVgap(0);
+        GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
         //Create the displays
         oscDisplay = new OscilloscopeDisplay();
@@ -33,13 +31,28 @@ public class IEPframe extends JFrame {
         fGenDisplay = new FunctionDisplay();
         fGenOptions = new FunctionOptions();
         //Add displays to the frame
-        panel.add(oscDisplay);
-        panel.add(fGenOptions);
-        panel.add(oscOptions);
-        panel.add(fGenDisplay);
-        frame.add(panel);
+        addComp(panel, oscDisplay, 0, 0, 1, 1, 0.7, 0.6);
+        addComp(panel, oscOptions, 0, 1, 1, 1, 0.7, 0.4);
+        addComp(panel, fGenOptions, 1, 0, 1, 1, 0.3, 0.6);
+        addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.3, 0.4);
+        frame.setContentPane(panel);
         //Display the window.
-        frame.pack();
+        //frame.pack();
+        frame.setSize(1100,600);
+        frame.setLocationByPlatform(true);
         frame.setVisible(true);
+    }
+    
+    private void addComp(JPanel panel, JComponent component,
+    		int x, int y, int width, int height, double weightX, double weightY){
+    	GridBagConstraints gbc = new GridBagConstraints();
+    	gbc.gridx = x;
+    	gbc.gridy = y;
+    	gbc.gridheight = height;
+    	gbc.gridwidth = width;
+    	gbc.fill = GridBagConstraints.BOTH;
+    	gbc.weightx = weightX;
+    	gbc.weighty = weightY;
+    	panel.add(component, gbc);	
     }
 }
