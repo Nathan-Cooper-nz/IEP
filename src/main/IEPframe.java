@@ -37,12 +37,23 @@ public class IEPframe extends JFrame {
         addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.3, 0.4);
         frame.setContentPane(panel);
         //Display the window.
-        //frame.pack();
         frame.setSize(1100,600);
-        frame.setLocationByPlatform(true);
+        //frame.pack();
         frame.setVisible(true);
     }
     
+    /**
+     * This is a helper method which is only used by this class to add
+     * components to a panel
+     * @param panel The panel that the component is being added to
+     * @param component The component to be added
+     * @param x Specifies the GridBagConstraints.gridx
+     * @param y Specifies the GridBagConstraints.gridy
+     * @param width Specifies the GridBagConstraints.gridwidth
+     * @param height Specifies the GridBagConstraints.gridheight
+     * @param weightX specifies the GridBagConstraints.weightX
+     * @param weightY specifies the GridBagConstraints.weightY
+     */
     private void addComp(JPanel panel, JComponent component,
     		int x, int y, int width, int height, double weightX, double weightY){
     	GridBagConstraints gbc = new GridBagConstraints();
