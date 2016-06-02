@@ -10,7 +10,13 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new IEPframe();
+            	//This is something to make the UI look nicer
+            	try { 
+            	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            	} catch (Exception e) {
+            	    e.printStackTrace();
+            	}
+            	new IEPframe();
             }
         });
     }
