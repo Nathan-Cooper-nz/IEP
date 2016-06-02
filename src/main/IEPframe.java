@@ -10,21 +10,20 @@ public class IEPframe extends JFrame {
     private OscilloscopeDisplay oscDisplay;
     private OscilloscopeOptions oscOptions;
 
-    private JFrame frame;
-
     public IEPframe(){
-        //Create and set up the window
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Add a menu bar
         JMenuBar bar = new JMenuBar();
         JMenu menu = new JMenu("JMenuBar");
         bar.add(menu);
-        frame.setJMenuBar(bar);
+        setJMenuBar(bar);
+        
         //Trying to figure out how to make the layout nicer
         JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
+        
         //Create the displays
         oscDisplay = new OscilloscopeDisplay();
         oscOptions = new OscilloscopeOptions();
@@ -35,11 +34,12 @@ public class IEPframe extends JFrame {
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.7, 0.4);
         addComp(panel, fGenOptions, 1, 0, 1, 1, 0.3, 0.6);
         addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.3, 0.4);
-        frame.setContentPane(panel);
+        setContentPane(panel);
+        
         //Display the window.
-        frame.setSize(1100,600);
+        setSize(1100,600);
         //frame.pack();
-        frame.setVisible(true);
+        setVisible(true);
     }
     
     /**
@@ -51,8 +51,8 @@ public class IEPframe extends JFrame {
      * @param y Specifies the GridBagConstraints.gridy
      * @param width Specifies the GridBagConstraints.gridwidth
      * @param height Specifies the GridBagConstraints.gridheight
-     * @param weightX specifies the GridBagConstraints.weightX
-     * @param weightY specifies the GridBagConstraints.weightY
+     * @param weightX specifies the GridBagConstraints.weightx
+     * @param weightY specifies the GridBagConstraints.weighty
      */
     private void addComp(JPanel panel, JComponent component,
     		int x, int y, int width, int height, double weightX, double weightY){
