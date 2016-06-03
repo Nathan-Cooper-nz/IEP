@@ -13,11 +13,6 @@ public class IEPframe extends JFrame {
     public IEPframe(){
         
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Add a menu bar
-        JMenuBar bar = new JMenuBar();
-        JMenu menu = new JMenu("JMenuBar");
-        bar.add(menu);
-        setJMenuBar(bar);
         
         //Trying to figure out how to make the layout nicer
         JPanel panel = new JPanel();
