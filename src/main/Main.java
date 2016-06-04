@@ -10,7 +10,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	//This is something to make the UI look nicer
+            	//Something to make the GUI look nicer
             	try { 
             	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             	} catch (Exception e) {

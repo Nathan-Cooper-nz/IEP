@@ -11,13 +11,8 @@ public class IEPframe extends JFrame {
     private OscilloscopeOptions oscOptions;
 
     public IEPframe(){
-        
+    	setTitle("Integrated Electronics Platform");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Add a menu bar
-        JMenuBar bar = new JMenuBar();
-        JMenu menu = new JMenu("JMenuBar");
-        bar.add(menu);
-        setJMenuBar(bar);
         
         //Trying to figure out how to make the layout nicer
         JPanel panel = new JPanel();
@@ -30,10 +25,10 @@ public class IEPframe extends JFrame {
         fGenDisplay = new FunctionDisplay();
         fGenOptions = new FunctionOptions();
         //Add displays to the frame
-        addComp(panel, oscDisplay, 0, 0, 1, 1, 0.7, 0.6);
-        addComp(panel, oscOptions, 0, 1, 1, 1, 0.7, 0.4);
-        addComp(panel, fGenOptions, 1, 0, 1, 1, 0.3, 0.6);
-        addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.3, 0.4);
+        addComp(panel, oscDisplay, 0, 0, 1, 1, 0.65, 0.6);
+        addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.4);
+        addComp(panel, fGenOptions, 1, 0, 1, 1, 0.35, 0.6);
+        addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.35, 0.4);
         setContentPane(panel);
         
         //Display the window.
