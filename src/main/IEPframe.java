@@ -32,8 +32,8 @@ public class IEPframe extends JFrame {
         setContentPane(panel);
         
         //Display the window.
-        setSize(1100,600);
-        //frame.pack();
+        setSize(1200,700);
+        //pack();
         setVisible(true);
     }
     

@@ -3,13 +3,17 @@ package main;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Hashtable;
 
 public class OscilloscopeOptions extends JTabbedPane {
 
@@ -43,6 +47,10 @@ public class OscilloscopeOptions extends JTabbedPane {
     	
     	JPanel left = getSubVoltagePanel("Channel 1");
     	JPanel right = getSubVoltagePanel("Channel 2");
+    	
+    	Border boarder = LineBorder.createGrayLineBorder();
+    	left.setBorder(boarder);
+    	right.setBorder(boarder);
         
     	panel.add(left);
     	panel.add(right);
@@ -60,10 +68,30 @@ public class OscilloscopeOptions extends JTabbedPane {
     	gbc.gridwidth = GridBagConstraints.REMAINDER;
     	
     	JLabel text = new JLabel(name);
+    	
     	//slider with min , max 30, default 5
     	JSlider slider = new JSlider(0, 30, 5);
+    	slider.addChangeListener(new ChangeListener(){
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider slider = (JSlider) e.getSource();
+				System.out.println("Slider chaneged to " + slider.getValue());
+				
+			}
+    	});
+    	Hashtable<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
+    	labels.put(new Integer(0), new JLabel("0"));
+    	labels.put(new Integer(30), new JLabel("30"));
+    	slider.setLabelTable(labels);
+    	slider.setPaintLabels(true);
+    	JPanel sliderPanel = new JPanel();
+    	JLabel voltLabel = new JLabel("Voltage");
+    	sliderPanel.add(voltLabel);
+    	sliderPanel.add(slider);
+    	
     	JButton auto = new JButton("Autoset");
     	auto.addActionListener(new ActionListener(){
+    		@Override
         	public void actionPerformed(ActionEvent e){
         		System.out.println("Autoset button pressed");
         	}
@@ -72,7 +100,7 @@ public class OscilloscopeOptions extends JTabbedPane {
     	panel.add(text, gbc);
         panel.add(Box.createRigidArea(new Dimension(0,10)), gbc); //put a gap between the buttons
     	panel.add(auto, gbc);
-    	panel.add(slider, gbc);
+    	panel.add(sliderPanel, gbc);
     	return panel;
     }
     
