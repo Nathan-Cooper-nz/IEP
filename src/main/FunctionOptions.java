@@ -22,41 +22,34 @@ public class FunctionOptions extends JPanel {
     	JSpinner freq = new JSpinner();
         JSpinner ampl = new JSpinner();
         JSpinner peri = new JSpinner();
-        JSeparator blank = new JSeparator(SwingConstants.HORIZONTAL); //TODO MAKE THIS WORK
-        blank.setMaximumSize(new Dimension(Integer.MAX_VALUE,1));
+       
         
-        Border border = LineBorder.createGrayLineBorder();
+        JLabel title = new  JLabel ("Function Generator");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JLabel title = new  JLabel ("Function Generator"); //TODO make this title centered
-        title.setPreferredSize(new Dimension(100,20));
-        title.setHorizontalAlignment(JLabel.LEFT);
-        title.setVerticalAlignment(JLabel.CENTER);
-        title.setBorder(border);
         
-        String [] shapes = new String[] {"Select a Wave Shape","Sine","Square","Triangle"};
-        JComboBox<String> waveShape = new JComboBox<>(shapes);
+        String [] shapes = new String[] {"Select a Wave Shape","Sine","Square","Triangle"}; //shape dropdowns
+        JComboBox<String> waveShape = new JComboBox<>(shapes);//need to not be able to select the first element
 
-        //labels - TODO ALIGNMENT
-        JLabel freqLabel = new JLabel("Frequency");
-        freqLabel.setHorizontalAlignment(JLabel.CENTER);
-        freqLabel.setVerticalAlignment(JLabel.CENTER);
+        JLabel freqLabel = new JLabel("Frequency (Hz)");
+        freqLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel ampLabel = new JLabel("Amplitude");
-        ampLabel.setHorizontalAlignment(JLabel.CENTER);
-        ampLabel.setVerticalAlignment(JLabel.CENTER);
+        ampLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel perLabel = new JLabel("Period");
-        perLabel.setHorizontalAlignment(JLabel.CENTER);
-        perLabel.setVerticalAlignment(JLabel.CENTER);
+        perLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
+        //add all the elements to the panel
         panel.add(title);
+        panel.add(Box.createRigidArea(new Dimension(0,10)));
         panel.add(freqLabel);
         panel.add(freq);
-        panel.add(blank);
+        panel.add(Box.createRigidArea(new Dimension(0,5)));
         panel.add(ampLabel);
         panel.add(ampl);
-        panel.add(blank);
+        panel.add(Box.createRigidArea(new Dimension(0,5)));
         panel.add(perLabel);
         panel.add(peri);
-        panel.add(blank);
+        panel.add(Box.createRigidArea(new Dimension(0,10)));
         panel.add(waveShape);        
     	
     	/*JLabel frequency,amplitude,period;
