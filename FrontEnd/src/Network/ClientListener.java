@@ -2,6 +2,7 @@ package Network;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.util.ArrayList;
 
 public class ClientListener extends NetworkComponent{
 	
@@ -39,8 +40,11 @@ public class ClientListener extends NetworkComponent{
 		}
 	}
 	
-	public synchronized String poll(){
-		return this.buffer.poll();
+	public synchronized ArrayList<String> poll(){
+		ArrayList<String> data = new ArrayList<String>();
+		this.buffer.drainTo(data);
+		
+		return data;
 	}
 
 }

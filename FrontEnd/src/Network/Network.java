@@ -1,6 +1,7 @@
 package Network;
 //https://systembash.com/a-simple-java-udp-server-and-udp-client/
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Network {
@@ -34,9 +35,8 @@ public class Network {
 		this.sender.send(s);
 	}
 	
-	public String receive(){
-		this.sender.send(UPDATESTRING);
-		return this.listener.poll();
+	public ArrayList<String> receive(){
+		return listener.poll();
 	}
 
 }
