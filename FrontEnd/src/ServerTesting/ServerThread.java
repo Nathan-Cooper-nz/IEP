@@ -21,6 +21,7 @@ public class ServerThread extends Thread{
 	 */
 	public ServerThread(String name, int port) throws IOException{
 		super(name);
+//		this.setDaemon(true);//stops this thread halting the JVM onClose()
         socket = new DatagramSocket(port);
 	}
 	
@@ -62,7 +63,9 @@ public class ServerThread extends Thread{
 		boolean run = true;
 		while(run){
 			try {
+				this.print("Sending to: " + this.client.IP + ":" + this.client.PORT + "...");
 				socket.send(sendPacket);
+				this.print("sent");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				run = false;

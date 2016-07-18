@@ -13,8 +13,8 @@ public class Network {
 	
 	
 	public Network() {
-		this.sender = new ClientSender();
-		this.listener = new ClientListener();
+		this.sender = new ClientSender(NetworkComponent.DEFAULTPORT);
+		this.listener = new ClientListener(NetworkComponent.DEFAULTPORT+1);
 		
 		this.sender.start();
 		this.listener.start();

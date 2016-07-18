@@ -35,7 +35,7 @@ public class ClientSender extends NetworkComponent{
 				String nextToSend = this.buffer.poll();
 				byte[] sendData = nextToSend.getBytes();
 				
-				DatagramPacket packet = new DatagramPacket(sendData, sendData.length);
+				DatagramPacket packet = new DatagramPacket(sendData, sendData.length, IP, 5843);
 				try {
 					this.socket.send(packet);
 				} catch (IOException e) {

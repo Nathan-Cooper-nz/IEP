@@ -9,7 +9,7 @@ public class Client {
 	
 	public Client(DatagramPacket p) {
 		this.IP = p.getAddress();
-		this.PORT = p.getPort();
+		this.PORT = p.getPort() + 1;
 	}
 	
 	@Override
