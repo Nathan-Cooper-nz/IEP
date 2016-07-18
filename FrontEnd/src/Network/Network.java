@@ -8,9 +8,35 @@ public class Network {
 	ClientSender sender;
 	ClientListener listener;
 	
+	public static final String UPDATESTRING = "GETANUPDATENOW";
+	
 	
 	public Network() {
-		// TODO Auto-generated constructor stub
+		this.sender = new ClientSender();
+		this.listener = new ClientListener();
+		
+		this.sender.start();
+		this.listener.start();
+	}
+	
+	public void closeAll(){
+		try {
+			sender.close();
+			listener.close();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void send(String s){
+		this.sender.send(s);
+	}
+	
+	public String receive(){
+		this.sender.send(UPDATESTRING);
+		return this.listener.poll();
 	}
 
 }

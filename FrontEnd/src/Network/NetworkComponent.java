@@ -10,12 +10,17 @@ public abstract class NetworkComponent extends Thread{
 	public static final int DEFAULTPORT = 5843;
 	public static final int PACKETSIZE = 1024;
 	
-	DatagramSocket socket;
-	InetAddress IP;
-	int port;
+	protected DatagramSocket socket;
+	protected InetAddress IP;
+	protected int port;
 	
-	ArrayBlockingQueue<String> buffer;
+	protected ArrayBlockingQueue<String> buffer;
 	
+	/**
+	 * Creates a new NetworkComponent with the given Address and Port
+	 * @param serverAddress The Servers InetAddress
+	 * @param port The Server Port
+	 */
 	public NetworkComponent(String serverAddress, int port) {
 		this.setDaemon(true);//stops the Thread Halting the JVM onClose()
 		
@@ -39,12 +44,31 @@ public abstract class NetworkComponent extends Thread{
 		this.buffer = new ArrayBlockingQueue<>(100);
 	}
 	
+	/**
+	 * Creates a new NetworkComponent with the given Port on 127.0.0.1
+	 * @param port The Server Port
+	 */
 	public NetworkComponent(int port){
 		this("localhost", port);
 	}
 	
+	/**
+	 * Creates a new NetworkComponent with the default Port on 127.0.0.1
+	 * The default port is {@value #DEFAULTPORT}
+	 */
 	public NetworkComponent() {
 		this("localhost", DEFAULTPORT);
+	}
+	
+	/**
+	 * Closes the current socket
+	 * Attempts to halt the Thread
+	 * @throws InterruptedException
+	 */
+	public void close() throws InterruptedException{
+		this.socket.close();
+		this.sleep(Long.MAX_VALUE);
+		
 	}
 
 }
