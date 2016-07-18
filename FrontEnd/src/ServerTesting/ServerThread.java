@@ -8,6 +8,7 @@ import java.net.DatagramSocket;
 public class ServerThread extends Thread{
 	private static final int PACKETSIZE = 1024;
 	private static final int SLEEPINMS = 300;
+	public static final int DEFAULTPORT = 5843;
 	
 	protected DatagramSocket socket = null;
 	protected Client client;
@@ -20,7 +21,7 @@ public class ServerThread extends Thread{
 	 */
 	public ServerThread(String name, int port) throws IOException{
 		super(name);
-        socket = new DatagramSocket(5843);
+        socket = new DatagramSocket(port);
 	}
 	
 	/**
@@ -35,11 +36,11 @@ public class ServerThread extends Thread{
 	
 	/**
 	 * Constructs a new IEP UDP server with the default name and port
-	 * Default Port is 5843
+	 * Default Port is {@value #DEFAULTPORT}
 	 * @throws IOException
 	 */
 	public ServerThread() throws IOException{
-		this("IEP Server on Port 5843", 5843);
+		this("IEP Server on Port " + DEFAULTPORT, DEFAULTPORT);
 	}
 	
 	private void print(String message){
