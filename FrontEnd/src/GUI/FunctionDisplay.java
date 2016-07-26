@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -43,6 +45,7 @@ public class FunctionDisplay extends JPanel{
                 false,
                 false);
         ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(250, 250));
         panel.add(chartPanel);
         panel.validate();
 		return panel;

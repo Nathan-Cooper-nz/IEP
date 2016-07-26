@@ -29,9 +29,8 @@ public class OscilloscopeDisplay extends JPanel {
                 false);
         
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(800, 300));
+        chartPanel.setPreferredSize(new Dimension(800, 400));
         chartPanel.validate();
         add(chartPanel);
 	}
-
 }

@@ -1,8 +1,11 @@
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,37 +47,18 @@ public class OscilloscopePanel extends JPanel{
     
     public JPanel getButtonPanel(){
     	JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setLayout(new BorderLayout());
         JButton saveButton = new JButton("Save");	//screenshot
         saveButton.addActionListener(new ActionListener(){
         	@Override
         	public void actionPerformed(ActionEvent e){
         		System.out.println("Save button pressed");
+        		System.out.println("width: " + display.getWidth() + "\nheight: " + display.getHeight());
         		channelOneOn = false;
         		channelTwoOn = false;
         	}
         });
-        ButtonGroup channel = new ButtonGroup();
-        JButton channelOne = new JButton("CH1");
-        channelOne.addActionListener(new ActionListener(){
-        	@Override
-        	public void actionPerformed(ActionEvent e){
-        		System.out.println("First channel selected");
-        		System.out.println("width: " + getWidth()*0.8 + "\nheight: " + getHeight());
-        		channelOneOn = true;
-        		channelTwoOn = false;
-        		
-        	}
-        });
-        JButton channelTwo = new JButton("CH2");
-        channelTwo.addActionListener(new ActionListener(){
-        	@Override
-        	public void actionPerformed(ActionEvent e){
-        		System.out.println("Second channel selected");
-        		channelOneOn = false;
-        		channelTwoOn = true;
-        	}
-        });
+        
         JButton pause = new JButton("Pause");
         pause.addActionListener(new ActionListener(){
         	@Override
@@ -83,16 +67,19 @@ public class OscilloscopePanel extends JPanel{
         	}
         });
 
-        channel.add(channelOne);
-        channel.add(channelTwo);
-  
-        buttonPanel.add(channelOne);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0,5)));
-        buttonPanel.add(channelTwo);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0,20)));
-        buttonPanel.add(pause);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0,5)));
-        buttonPanel.add(saveButton);
+        JPanel inner = new JPanel();
+        inner.setLayout(new GridBagLayout());
+        JComponent emptyBox = (JComponent) Box.createRigidArea(new Dimension(0,20));
+        addComp(inner, pause, 0, 0, 1, 1, 1, 0.1);
+        addComp(inner, emptyBox, 0, 1, 1, 1, 1, 0.1);
+        addComp(inner, saveButton, 0, 2, 1, 1, 1, 0.1);
+        addComp(inner, emptyBox, 0, 3, 1, 1, 1, 0.1);
+        
+        //inner.add(pause);
+        //inner.add(Box.createRigidArea(new Dimension(0,20)));
+        //inner.add(saveButton);
+        //inner.add(Box.createRigidArea(new Dimension(0,20)));
+        buttonPanel.add(inner, BorderLayout.SOUTH);
         return buttonPanel;
     }
     
