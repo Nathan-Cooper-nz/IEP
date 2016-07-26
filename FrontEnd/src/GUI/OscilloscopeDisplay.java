@@ -10,10 +10,18 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class OscilloscopeDisplay extends JPanel{
 
@@ -28,19 +36,30 @@ public class OscilloscopeDisplay extends JPanel{
         GridBagConstraints gbc = new GridBagConstraints();
         
         //add the oscilloscope display and buttons
-        gbc.gridx = 0;
-        gbc.weightx = 0.9;
-        gbc.weighty = 1;
-        add(getDisplayPanel(), gbc);
-        gbc.gridx = 1;
-        gbc.weightx = 0.1;
-        add(getButtonPanel(), gbc);
+        addComp(this, getDisplayPanel(), 0, 0, 1, 1, 1, 0.9);
+        addComp(this, getButtonPanel(), 1, 0, 1, 1, 1, 0.1);
     }
     
     public JPanel getDisplayPanel(){
     	JPanel panel = new JPanel();
-    	panel.add(new JLabel("Oscilloscope display"));
-    	return panel;
+    	XYSeries voltages = new XYSeries("Voltages");
+		XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(voltages);
+
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "Oscilloscope",
+                "Time (seconds)",
+                "Voltage",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        addComp(panel, chartPanel, 0, 0, 1, 1, 0.9, 1);
+        panel.validate();
+		return panel;
+    	
     }
     
     public JPanel getButtonPanel(){
@@ -94,6 +113,52 @@ public class OscilloscopeDisplay extends JPanel{
         buttonPanel.add(Box.createRigidArea(new Dimension(0,5)));
         buttonPanel.add(saveButton);
         return buttonPanel;
+    }
+    
+    public JPanel getGraph(){
+    	JPanel panel = new JPanel();
+    	XYSeries voltages = new XYSeries("Voltages");
+		XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(voltages);
+
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "Oscilloscope",
+                "Time (seconds)",
+                "Voltage",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panel.add(chartPanel);
+        panel.validate();
+		return panel;
+    }
+    
+    /**
+     * This is a helper method which is only used by this class to add
+     * components to a panel
+     * @param panel The panel that the component is being added to
+     * @param component The component to be added
+     * @param x Specifies the GridBagConstraints.gridx
+     * @param y Specifies the GridBagConstraints.gridy
+     * @param width Specifies the GridBagConstraints.gridwidth
+     * @param height Specifies the GridBagConstraints.gridheight
+     * @param weightX specifies the GridBagConstraints.weightx
+     * @param weightY specifies the GridBagConstraints.weighty
+     */
+    private void addComp(JPanel panel, JComponent component,
+    		int x, int y, int width, int height, double weightX, double weightY){
+    	GridBagConstraints gbc = new GridBagConstraints();
+    	gbc.gridx = x;
+    	gbc.gridy = y;
+    	gbc.gridheight = height;
+    	gbc.gridwidth = width;
+    	gbc.fill = GridBagConstraints.BOTH;
+    	gbc.weightx = weightX;
+    	gbc.weighty = weightY;
+    	panel.add(component, gbc);	
     }
     
 }

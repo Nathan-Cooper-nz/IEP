@@ -1,14 +1,15 @@
 package main;
 
 import java.util.Random;
-
+/*
 import org.graphstream.algorithm.measure.ChartMeasure.PlotException;
 import org.graphstream.algorithm.measure.ChartSeries1DMeasure;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+*/
 
 public class GraphStreamTesting {
-	
+	/*
 	private static SingleGraph triangleGraph(){
 		SingleGraph graph = new SingleGraph("Graph1");
 		graph.addNode("1");
@@ -40,5 +41,5 @@ public class GraphStreamTesting {
 		//SingleGraph graph = triangleGraph();	
 		ChartSeries1DMeasure graph = lineGraph();
 	}
-
+*/
 }
