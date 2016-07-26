@@ -11,7 +11,7 @@ public class IEPframe extends JFrame {
 
     private FunctionDisplay fGenDisplay;
     private FunctionOptions fGenOptions;
-    private OscilloscopeDisplay oscDisplay;
+    private OscilloscopePanel oscDisplay;
     private OscilloscopeOptions oscOptions;
 
     public IEPframe(){
@@ -24,7 +24,7 @@ public class IEPframe extends JFrame {
         panel.setLayout(layout);
         
         //Create the displays
-        oscDisplay = new OscilloscopeDisplay();
+        oscDisplay = new OscilloscopePanel();
         oscOptions = new OscilloscopeOptions();
         fGenDisplay = new FunctionDisplay();
         fGenOptions = new FunctionOptions();

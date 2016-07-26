@@ -14,7 +14,7 @@ public class Main {
             public void run() {
             	//Something to make the GUI look nicer
             	try { 
-            	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            	    //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             	} catch (Exception e) {
             	    e.printStackTrace();
             	}

@@ -61,13 +61,12 @@ public class FunctionOptions extends JPanel {
 			}
 		});
 
-
 		JLabel title = new  JLabel ("Function Generator");
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
-		String [] shapes = new String[] {"Select a Wave Shape","Sine","Square","Triangle"}; //shape dropdowns
-		JComboBox<String> waveShape = new JComboBox<>(shapes);//need to not be able to select the first element
+		String [] shapes = new String[] {"Sine","Square","Triangle"}; //shape dropdowns
+		JComboBox<String> waveShape = new JComboBox<>(shapes);
+		
 		waveShape.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
