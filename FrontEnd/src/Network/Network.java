@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Network {
+	public static final int DEFAULTSERVERPORT = 5844;
 	
 	ClientSender sender;
 	ClientListener listener;
@@ -13,11 +14,16 @@ public class Network {
 	
 	
 	public Network() {
-		this.sender = new ClientSender(NetworkComponent.DEFAULTPORT);
-		this.listener = new ClientListener(NetworkComponent.DEFAULTPORT+1);
+		this.sender = new ClientSender();
+		this.listener = new ClientListener();
+		
+		for(int i = 0; i < 5; i++){
+			this.send(Integer.toString(this.listener.getPort()));
+		}
 		
 		this.sender.start();
 		this.listener.start();
+		
 	}
 	
 	public void closeAll(){
