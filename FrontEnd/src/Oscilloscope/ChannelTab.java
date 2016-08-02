@@ -179,7 +179,7 @@ public class ChannelTab extends JPanel{
      * @param weightX specifies the GridBagConstraints.weightx
      * @param weightY specifies the GridBagConstraints.weighty
      */
-    public void addComp(JPanel panel, JComponent component,
+    private void addComp(JPanel panel, JComponent component,
     		int x, int y, int width, int height, double weightX, double weightY){
     	GridBagConstraints gbc = new GridBagConstraints();
     	gbc.gridx = x;

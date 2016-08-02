@@ -87,6 +87,7 @@ public class OscilloscopePanel extends JPanel{
     public JPanel getDataPanel(){
     	JPanel panel = new JPanel();
     	panel.setLayout(new GridBagLayout());
+    	
     	JPanel first = getData("First");
     	JPanel second = getData("Second");
     	JPanel third = getData("Third");
@@ -97,6 +98,7 @@ public class OscilloscopePanel extends JPanel{
     	addComp(panel, third, 0, 2, 1, 1, 1, 0.2);
     	addComp(panel, fourth, 0, 3, 1, 1, 1, 0.2);
     	addComp(panel, fifth, 0, 4, 1, 1, 1, 0.2);
+    	
     	return panel;
     }
     

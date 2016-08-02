@@ -3,6 +3,7 @@ package Oscilloscope;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -45,23 +46,14 @@ public class CursorTab extends JPanel{
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
     }
     
-    public JPanel getDPad(){
-    	JPanel panel = new JPanel();
-    	panel.setLayout(new BorderLayout());
-        panel.add(new BasicArrowButton(BasicArrowButton.EAST), BorderLayout.EAST);
-        panel.add(new BasicArrowButton(BasicArrowButton.NORTH), BorderLayout.NORTH);
-        panel.add(new BasicArrowButton(BasicArrowButton.SOUTH), BorderLayout.SOUTH);
-        panel.add(new BasicArrowButton(BasicArrowButton.WEST), BorderLayout.WEST);
-    	return panel;
-    }
-    
     public JPanel getSubCurserPanel(String channel, boolean isLeft){
     	JPanel panel = new JPanel();
     	GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
     	
     	JLabel label = new JLabel(channel);
-    	JPanel dPad = getDPad();
+    	JPanel dPad = getDpad();
+    	
     	JPanel pad = new JPanel();
     	pad.setLayout(new GridBagLayout());
     	// source
@@ -86,6 +78,21 @@ public class CursorTab extends JPanel{
     	return panel;
     }
     
+    public JPanel getDpad(){
+    	JPanel panel = new JPanel();
+    	panel.setLayout(new GridLayout(2,2));
+		JButton up = new BasicArrowButton(BasicArrowButton.NORTH);
+        JButton right = new BasicArrowButton(BasicArrowButton.EAST);
+        JButton left = new BasicArrowButton(BasicArrowButton.WEST);
+        JButton down = new BasicArrowButton(BasicArrowButton.SOUTH);
+
+        panel.add(up);
+        panel.add(down);
+        panel.add(left);
+        panel.add(right);
+        return panel;
+    }
+    
     /**
      * This is a helper method which is only used by this class to add
      * components to a panel
@@ -98,7 +105,7 @@ public class CursorTab extends JPanel{
      * @param weightX specifies the GridBagConstraints.weightx
      * @param weightY specifies the GridBagConstraints.weighty
      */
-    public void addComp(JPanel panel, JComponent component,
+    private void addComp(JPanel panel, JComponent component,
     		int x, int y, int width, int height, double weightX, double weightY){
     	GridBagConstraints gbc = new GridBagConstraints();
     	gbc.gridx = x;
