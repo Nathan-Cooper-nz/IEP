@@ -1,4 +1,4 @@
-package GUI;
+package Oscilloscope;
 
 import java.awt.Dimension;
 
