@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -64,8 +65,16 @@ public class FunctionOptions extends JPanel {
 		JLabel title = new  JLabel ("Function Generator");
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		String [] shapes = new String[] {"Sine","Square","Triangle"}; //shape dropdowns
-		JComboBox<String> waveShape = new JComboBox<>(shapes);
+		JComboBox<String> waveShape = new JComboBox<String>();
+		waveShape.addItem("Choose a wave shape");
+		waveShape.addItem("Sine");
+		waveShape.addItem("Square");
+		waveShape.addItem("Triangle");
+		DefaultListSelectionModel model = new DefaultListSelectionModel();
+		model.addSelectionInterval(1, 3);
+		//model.addSelectionInterval(3, 3);
+		EnabledComboBoxRenderer enableRend = new EnabledComboBoxRenderer(model);
+		waveShape.setRenderer(enableRend);
 		
 		waveShape.addItemListener(new ItemListener() {
 			@Override
