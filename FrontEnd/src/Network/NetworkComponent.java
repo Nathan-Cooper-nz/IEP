@@ -9,6 +9,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public abstract class NetworkComponent extends Thread{
 	
 	public static final int PACKETSIZE = 1024;
+	public static final int BUFFERSIZE = 100;
 	
 	protected DatagramSocket socket;
 	protected InetAddress IP;
@@ -41,7 +42,7 @@ public abstract class NetworkComponent extends Thread{
 		
 		this.port = port;
 		
-		this.buffer = new ArrayBlockingQueue<>(100);
+		this.buffer = new ArrayBlockingQueue<>(NetworkComponent.BUFFERSIZE);
 	}
 	
 	/**
@@ -54,7 +55,7 @@ public abstract class NetworkComponent extends Thread{
 	
 	/**
 	 * Creates a new NetworkComponent with the default Port on 127.0.0.1
-	 * The default port is {@value #DEFAULTPORT}
+	 * The default port is generated
 	 */
 	public NetworkComponent() {
 		try {
@@ -63,6 +64,16 @@ public abstract class NetworkComponent extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			this.IP = InetAddress.getByName("localhost");
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.port = this.socket.getLocalPort();
+		
+		this.buffer = new ArrayBlockingQueue<>(NetworkComponent.BUFFERSIZE);
 	}
 	
 	/**
