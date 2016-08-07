@@ -13,6 +13,27 @@ public class ServerThread extends Thread{
 	protected DatagramSocket socket = null;
 	protected Client client;
 	
+	
+	
+	
+	
+	/**
+	 * This Method is called when the server want to send to the client
+	 * @return
+	 */
+	private String infoToSend() {
+		return Long.toString(System.currentTimeMillis());
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Constructs a new IEP UDP server with the given name and port
 	 * @param name The name of the Thread
@@ -55,15 +76,17 @@ public class ServerThread extends Thread{
 		this.print("started");
 		while(!firstConnect());
 		
-		String s = "hey look some data";
-		byte[] toSend = s.getBytes();
-		
-		DatagramPacket sendPacket = new DatagramPacket(toSend, toSend.length, this.client.IP, this.client.PORT);
 		
 		boolean run = true;
 		while(run){
+			String s = infoToSend();
+			byte[] toSend = s.getBytes();
+			
+			DatagramPacket sendPacket = new DatagramPacket(toSend, toSend.length, this.client.IP, this.client.SEND_PORT);
+			
+			
 			try {
-				this.print("Sending to: " + this.client.IP + ":" + this.client.PORT + "...");
+				this.print("Sending to: " + this.client.IP + ":" + this.client.SEND_PORT + "...");
 				socket.send(sendPacket);
 				this.print("sent");
 			} catch (IOException e) {
@@ -81,6 +104,7 @@ public class ServerThread extends Thread{
 			
 		}
 	}
+	
 	
 	/**
 	 * Checks if a connection has been established
