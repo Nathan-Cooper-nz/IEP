@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -12,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,7 +35,7 @@ public class FunctionOptions extends JPanel {
 
 	public FunctionOptions(){
 		GridBagConstraints gbc = new GridBagConstraints();
-		//setLayout(new GridBagLayout());
+		setLayout(new GridBagLayout());
 		add(getButtons(), gbc);
 	}
 
@@ -96,76 +98,28 @@ public class FunctionOptions extends JPanel {
 		
 		JLabel f = new JLabel("Frequency: ");
 		
-		JTextField fr = new JTextField();
+		JTextField fr = new JTextField("0");
+		frequency = Integer.parseInt(fr.getText());
 		panel.add(f);
 		panel.add(fr);
 		panel.add(upDownPanel());
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
-		JLabel bl = new JLabel("");
-		//panel.add(bl);
-		
+		JLabel bl = new JLabel("");		
 		
 		JLabel a = new JLabel("Amplitude: ");
-		JTextField am = new JTextField();
+		JTextField am = new JTextField("0");
+		amplitude = Integer.parseInt(am.getText());
 		panel.add(a);
 		panel.add(am);
 		panel.add(upDownPanel());
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
-		//panel.add(bl);
 		
 		JLabel p = new JLabel("Period: ");
-		JTextField pe = new JTextField();
+		JTextField pe = new JTextField("0");
+		period = Integer.parseInt(pe.getText());
 		panel.add(p);
 		panel.add(pe);
 		panel.add(upDownPanel());
-		
-		/*JLabel freqLabel = new JLabel("Frequency (Hz)");
-		freqLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel ampLabel = new JLabel("Amplitude");
-		ampLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel perLabel = new JLabel("Period");
-		perLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JSpinner freq = new JSpinner();
-		freq.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSpinner freq = (JSpinner) e.getSource();
-				System.out.println("Freq value: "+freq.getValue());
-			}
-		});
-		JSpinner ampl = new JSpinner();
-		ampl.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSpinner ampl = (JSpinner) e.getSource();
-				System.out.println("Ampl value: "+ampl.getValue());
-			}
-		});
-		JSpinner peri = new JSpinner();
-		peri.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSpinner peri = (JSpinner) e.getSource();
-				System.out.println("Peri value: "+peri.getValue());
-			}
-		});
-		
-		
-		Dimension fd = freq.getPreferredSize();
-		fd.height = 25;
-		freq.setPreferredSize(fd);
-		
-		panel.add(freqLabel);
-		panel.add(freq);
-		panel.add(Box.createRigidArea(new Dimension(0,5)));
-		panel.add(ampLabel);
-		panel.add(ampl);
-		panel.add(Box.createRigidArea(new Dimension(0,5)));
-		panel.add(perLabel);
-		panel.add(peri);*/
 		
 		return panel;
 	}
