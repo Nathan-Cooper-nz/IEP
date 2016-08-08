@@ -26,6 +26,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**
+ * This is the upper half of the Oscilloscope JPanel
+ * and consists of the JPanel holding the graph and also 
+ * the components on the left hand side
+ * 
+ * @author nztyler
+ *
+ */
 public class OscilloscopePanel extends JPanel {
 
 	private boolean channelOneOn = false;
@@ -111,8 +119,7 @@ public class OscilloscopePanel extends JPanel {
     	return panel;
     }
     
-    //getter
-    
+    //This is the only getter we need
     public OscilloscopeDisplay getOscilloscopeDisplay(){
     	return display;
     }

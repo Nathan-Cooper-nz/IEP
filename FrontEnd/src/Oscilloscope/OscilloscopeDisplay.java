@@ -17,17 +17,25 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**
+ * The Display consists of the Oscilloscope Graph and all
+ * of the features that will be displayed using the graphing
+ * libraries
+ * 
+ * @author nztyler
+ *
+ */
 public class OscilloscopeDisplay extends JPanel {
 	
 	private Date startDate;
 	private long startTime;
 	private XYSeries voltages;
 
+	private OscilloscopePanel oscPanel;	//I may not even need this
 	private OscilloscopeThread oscThread;
 	
-	//constructor argument not needed?
 	public OscilloscopeDisplay(OscilloscopePanel oscPanel){
-		oscPanel = oscPanel;
+		this.oscPanel = oscPanel;
 		oscThread = new OscilloscopeThread(this);
 		
 		startDate = new Date();

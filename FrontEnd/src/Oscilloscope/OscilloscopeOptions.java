@@ -27,6 +27,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicArrowButton;
 
+/**
+ * The Options that should be used to changes the values
+ * for the settings on the Oscilloscope. There will be a 
+ * lot of buttons, so tabs are most likely the best way to 
+ * implement this
+ * 
+ * @author nztyler
+ *
+ */
 public class OscilloscopeOptions extends JTabbedPane {
 	
 	private JPanel channel;

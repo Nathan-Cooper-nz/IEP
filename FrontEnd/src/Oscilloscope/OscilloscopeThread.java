@@ -1,5 +1,13 @@
 package Oscilloscope;
 
+/**
+ * This is the Thread for the Oscilloscope. This thread
+ * should read in the changes to be made from the sockets
+ * and sends the changes to the Oscilloscope Display
+ * 
+ * @author nztyler
+ *
+ */
 public class OscilloscopeThread extends Thread{
 
 	private OscilloscopeDisplay display;
@@ -17,9 +25,9 @@ public class OscilloscopeThread extends Thread{
         	while (true) {
         		
         		position++;
-        		double voltage = Math.sin(position*2*Math.PI/50) * (10);
+        		double voltage = Math.sin(position*2*Math.PI/120) * (10);
                 display.setVoltage(voltage);
-                sleep(50);
+                sleep(25);
                 
         	}
 
