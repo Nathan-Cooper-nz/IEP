@@ -7,14 +7,14 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import GUI.FunctionDisplay;
 import GUI.FunctionOptions;
+import Oscilloscope.OscilloscopeMeasure;
 import Oscilloscope.OscilloscopeOptions;
 import Oscilloscope.OscilloscopePanel;
 
 public class IEPframe extends JFrame {
 
-    private FunctionDisplay fGenDisplay;
+    private OscilloscopeMeasure oscMeasure;
     private FunctionOptions fGenOptions;
     private OscilloscopePanel oscPanel;
     private OscilloscopeOptions oscOptions;
@@ -31,13 +31,13 @@ public class IEPframe extends JFrame {
         //Create the displays
         oscPanel = new OscilloscopePanel();
         oscOptions = new OscilloscopeOptions();
-        fGenDisplay = new FunctionDisplay();
+        oscMeasure = new OscilloscopeMeasure();
         fGenOptions = new FunctionOptions();
         //Add displays to the frame
         addComp(panel, oscPanel, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);
-        addComp(panel, fGenOptions, 1, 0, 1, 1, 0.35, 0.7);
-        addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.35, 0.3);
+        addComp(panel, oscMeasure, 1, 0, 1, 1, 0.35, 0.3);
+        addComp(panel, fGenOptions, 1, 1, 1, 1, 0.35, 0.7);
         setContentPane(panel);
         
         //Display the window.
