@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -97,44 +99,84 @@ public class FunctionOptions extends JPanel {
 		panel.setLayout(new GridLayout(3,0));
 		
 		JLabel f = new JLabel("Frequency: ");
-		
 		JTextField fr = new JTextField("0");
 		frequency = Integer.parseInt(fr.getText());
+		UpDown fud = new UpDown();
+		fud.up.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(fr.getText());
+				t++;
+				fr.setText(t + "");
+			}
+		});
+		fud.down.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(fr.getText());
+				t = t-1;
+				fr.setText(t + "");
+			}
+		});
+		
 		panel.add(f);
 		panel.add(fr);
-		panel.add(upDownPanel());
-		panel.add(Box.createRigidArea(new Dimension(0,10)));
-		JLabel bl = new JLabel("");		
+		panel.add(fud.getUD());
+		panel.add(Box.createRigidArea(new Dimension(0,10)));	
 		
 		JLabel a = new JLabel("Amplitude: ");
 		JTextField am = new JTextField("0");
 		amplitude = Integer.parseInt(am.getText());
+		UpDown aud = new UpDown();
+		
+		aud.up.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(am.getText());
+				t++;
+				am.setText(t + "");
+			}
+		});
+		aud.down.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(am.getText());
+				t = t-1;
+				am.setText(t + "");
+			}
+		});
+		
 		panel.add(a);
 		panel.add(am);
-		panel.add(upDownPanel());
+		panel.add(aud.getUD());
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		JLabel p = new JLabel("Period: ");
 		JTextField pe = new JTextField("0");
 		period = Integer.parseInt(pe.getText());
+		UpDown pud = new UpDown();
+		
+		pud.up.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(pe.getText());
+				t++;
+				pe.setText(t + "");
+			}
+		});
+		pud.down.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(pe.getText());
+				t = t-1;
+				pe.setText(t + "");
+			}
+		});
+		
 		panel.add(p);
 		panel.add(pe);
-		panel.add(upDownPanel());
+		panel.add(pud.getUD());
 		
 		return panel;
-	}
-	
-	public JPanel upDownPanel(){
-		JPanel upDown = new JPanel();
-		upDown.setLayout(new GridLayout(2,1));
-		JButton up = new BasicArrowButton(BasicArrowButton.NORTH);
-		JButton down = new BasicArrowButton(BasicArrowButton.SOUTH);
-		Component blank = new JLabel("");
-		//upDown.add(blank);
-		upDown.add(up);
-		//upDown.add(blank);
-		//upDown.add(blank);
-		upDown.add(down);
-		return upDown;
 	}
 }
