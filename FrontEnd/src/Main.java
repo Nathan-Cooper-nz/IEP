@@ -16,7 +16,11 @@ public class Main {
             	} catch (Exception e) {
             	    e.printStackTrace();
             	}
-            	new IEPframe();
+            	
+            	IEPframe frame = new IEPframe();
+            	
+            	//start the oscilloscope thread
+            	frame.getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().start();
             }
         });
     }

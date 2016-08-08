@@ -16,7 +16,7 @@ public class IEPframe extends JFrame {
 
     private FunctionDisplay fGenDisplay;
     private FunctionOptions fGenOptions;
-    private OscilloscopePanel oscDisplay;
+    private OscilloscopePanel oscPanel;
     private OscilloscopeOptions oscOptions;
 
     public IEPframe(){
@@ -29,12 +29,12 @@ public class IEPframe extends JFrame {
         panel.setLayout(layout);
         
         //Create the displays
-        oscDisplay = new OscilloscopePanel();
+        oscPanel = new OscilloscopePanel();
         oscOptions = new OscilloscopeOptions();
         fGenDisplay = new FunctionDisplay();
         fGenOptions = new FunctionOptions();
         //Add displays to the frame
-        addComp(panel, oscDisplay, 0, 0, 1, 1, 0.65, 0.7);
+        addComp(panel, oscPanel, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);
         addComp(panel, fGenOptions, 1, 0, 1, 1, 0.35, 0.7);
         addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.35, 0.3);
@@ -44,6 +44,10 @@ public class IEPframe extends JFrame {
         setSize(1200,700);
         //pack();
         setVisible(true);
+    }
+    
+    public OscilloscopePanel getOscilloscopePanel(){
+    	return oscPanel;
     }
     
     /**

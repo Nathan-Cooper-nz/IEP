@@ -52,7 +52,7 @@ public class CursorTab extends JPanel{
         panel.setLayout(layout);
     	
     	JLabel label = new JLabel(channel);
-    	JPanel dPad = getDpad();
+    	JPanel dPad = new DirectionPad();
     	
     	JPanel pad = new JPanel();
     	pad.setLayout(new GridBagLayout());
@@ -76,21 +76,6 @@ public class CursorTab extends JPanel{
     	addComp(panel, label, 0, 0, 1, 1, 1, 0.3);
     	addComp(panel, pad, 0, 1, 1, 1, 1, 0.7);
     	return panel;
-    }
-    
-    public JPanel getDpad(){
-    	JPanel panel = new JPanel();
-    	panel.setLayout(new GridLayout(2,2));
-		JButton up = new BasicArrowButton(BasicArrowButton.NORTH);
-        JButton right = new BasicArrowButton(BasicArrowButton.EAST);
-        JButton left = new BasicArrowButton(BasicArrowButton.WEST);
-        JButton down = new BasicArrowButton(BasicArrowButton.SOUTH);
-
-        panel.add(up);
-        panel.add(down);
-        panel.add(left);
-        panel.add(right);
-        return panel;
     }
     
     /**

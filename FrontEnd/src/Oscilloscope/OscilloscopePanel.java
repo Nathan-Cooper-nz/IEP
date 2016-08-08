@@ -26,7 +26,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class OscilloscopePanel extends JPanel{
+public class OscilloscopePanel extends JPanel {
 
 	private boolean channelOneOn = false;
 	private boolean channelTwoOn = false;
@@ -39,7 +39,7 @@ public class OscilloscopePanel extends JPanel{
         setLayout(new GridBagLayout());
         
         //add the oscilloscope display and buttons
-        display = new OscilloscopeDisplay();
+        display = new OscilloscopeDisplay(this);
         JPanel sidePanel = new JPanel();
         sidePanel.setLayout(new GridBagLayout());
         
@@ -109,6 +109,12 @@ public class OscilloscopePanel extends JPanel{
     	JLabel label = new JLabel(name);
     	panel.add(label);
     	return panel;
+    }
+    
+    //getter
+    
+    public OscilloscopeDisplay getOscilloscopeDisplay(){
+    	return display;
     }
     
     /**

@@ -44,43 +44,7 @@ public class ChannelTab extends JPanel{
         panel.setBorder(new EmptyBorder(0, 10, 0, 10)); //give 10px padding on the L+R
     	
     	JLabel text = new JLabel(name);
-    	
-    	//voltage
-    	JSlider slider = new JSlider(0, 30, 5); //format (min, max, default)
-    	JLabel voltLabel = new JLabel("Sec/Div");
-    	JTextArea voltValue = new JTextArea(1, 2);
-    	voltValue.setEditable(false);
-    	Border border = LineBorder.createGrayLineBorder();
-    	voltValue.setBorder(border);
-    	if (isLeft){
-    		voltageOne = slider.getValue();
-    	} else {
-    		voltageTwo = slider.getValue();
-    	}
-    	voltValue.setText(Integer.toString(slider.getValue()));
-    	slider.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider s = (JSlider) e.getSource();
-				System.out.println("Slider chaneged to " + s.getValue());
-				if (isLeft){
-					voltageOne = s.getValue();
-				} else {
-					voltageTwo = s.getValue();
-				} 
-				voltValue.setText(Integer.toString(s.getValue()));
-			}
-    	});
-    	Hashtable<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
-    	labels.put(new Integer(0), new JLabel("0"));
-    	labels.put(new Integer(30), new JLabel("30"));
-    	slider.setLabelTable(labels);
-    	slider.setPaintLabels(true);
-    	JPanel sliderPanel = new JPanel();
-    	sliderPanel.add(voltLabel);
-    	sliderPanel.add(slider);
-    	sliderPanel.add(voltValue);
-    	
+    
     	//Autoset
     	JButton auto = new JButton("Autoset");
     	auto.addActionListener(new ActionListener(){
@@ -130,39 +94,18 @@ public class ChannelTab extends JPanel{
         probePanel.add(lowProbe);
         probePanel.add(highProbe);
         
-        //position slider
-        JSlider posSlider = new JSlider(JSlider.VERTICAL, 0, 100, 50); //format (min, max, default)
-        posSlider.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider slider = (JSlider) e.getSource();
-				System.out.println("Position chaneged to " + slider.getValue());
-				
-			}
-    	});
-    	Hashtable<Integer, JComponent> posLabels = new Hashtable<Integer, JComponent>();
-    	posLabels.put(new Integer(0), new JLabel("L"));
-    	posLabels.put(new Integer(100), new JLabel("R"));
-    	posSlider.setLabelTable(posLabels);
-    	posSlider.setPaintLabels(true);
-    	
-    	
+        JPanel dPad = new DirectionPad();
         
     	JPanel right = new JPanel();   	
         right.setLayout(new GridBagLayout());
+        
     	addComp(right, auto, 0, 0, 1, 1, 1, 0.05);
-        addComp(right, sliderPanel, 0, 1, 1, 1, 1, 0.1);
-        addComp(right, couplePanel, 0, 2, 1, 1, 1, 0.2);
-        addComp(right, probePanel, 0, 3, 1, 1, 1, 0.2);
+    	addComp(right, dPad, 0, 1, 1, 1, 1, 0.55);
+        addComp(right, probePanel, 0, 2, 1, 1, 1, 0.2);
+        addComp(right, couplePanel, 0, 3, 1, 1, 1, 0.2);
         
         addComp(panel, text, 0, 0, 1, 1, 1, 0.1);
-        if (isLeft){
-        	addComp(panel, right, 0, 1, 1, 1, 0.9, 0.9);
-        	addComp(panel, posSlider, 1, 1, 1, 1, 0.1, 0.9);
-        } else {
-        	addComp(panel, posSlider, 0, 1, 1, 1, 0.1, 0.9);
-        	addComp(panel, right, 1, 1, 1, 1, 0.9, 0.9);
-        }
+        addComp(panel, right, 0, 1, 1, 1, 1, 0.9);
 
     	return panel;
     }
