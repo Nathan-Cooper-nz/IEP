@@ -33,10 +33,11 @@ public class OscilloscopeThread extends Thread{
 	    			String string = "";
 	        		for (int i = 0; i < data.size(); i++) {
 	    				string = data.get(i).trim();
+	    				position++;
+		        		double voltage = Double.parseDouble(string);
+		                display.setVoltage(voltage);
 	    			}
-	        		position++;
-	        		double voltage = Double.parseDouble(string);
-	                display.setVoltage(voltage);
+	        		
         		}
                 //sleep(10);
         	}
