@@ -24,7 +24,9 @@ public class ServerThread extends Thread{
 	 * @return
 	 */
 	private String infoToSend() {
-		double voltage = Math.sin(position*2*Math.PI/120) * (10);
+		double voltage = Math.sin(position*2*Math.PI/30) * (8);
+		voltage = Math.round(voltage * 10000d)/10000d;
+		
 		String string = Double.toString(voltage);
 		position ++;
 		return string;
