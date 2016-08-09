@@ -1,5 +1,9 @@
 package Oscilloscope;
 
+import java.util.ArrayList;
+
+import Network.Network;
+
 /**
  * This is the Thread for the Oscilloscope. This thread
  * should read in the changes to be made from the sockets
@@ -22,11 +26,18 @@ public class OscilloscopeThread extends Thread{
 			
         	int position = 0;
         	
+        	Network n = new Network();
         	while (true) {
-        		
-        		position++;
-        		double voltage = Math.sin(position*2*Math.PI/120) * (10);
-                display.setVoltage(voltage);
+        		ArrayList<String> data = n.receive();
+        		if(data.size() > 0){
+	    			String string = "";
+	        		for (int i = 0; i < data.size(); i++) {
+	    				string = data.get(i).trim();
+	    			}
+	        		position++;
+	        		double voltage = Double.parseDouble(string);
+	                display.setVoltage(voltage);
+        		}
                 sleep(25);
                 
         	}

@@ -29,9 +29,9 @@ public class ClientListener extends NetworkComponent{
 		
 		while(run){
 			try {
-				System.out.println("Listening...");
+				//System.out.println("Listening...");
 				this.socket.receive(packet);
-				System.out.println("Found");
+				//System.out.println("Found");
 			} catch (IOException e) {
 				run = false;
 				e.printStackTrace();

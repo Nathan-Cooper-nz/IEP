@@ -58,6 +58,8 @@ public class OscilloscopeDisplay extends JPanel {
                 false,
                 false);
         
+        chart.removeLegend();
+        
         XYPlot plot = (XYPlot)chart.getPlot();
         
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();

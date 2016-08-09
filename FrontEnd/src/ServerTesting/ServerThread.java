@@ -10,6 +10,8 @@ public class ServerThread extends Thread{
 	private static final int SLEEPINMS = 300;
 	public static final int DEFAULTPORT = 5843;
 	
+	private int position = 0;
+	
 	protected DatagramSocket socket = null;
 	protected Client client;
 	
@@ -22,7 +24,10 @@ public class ServerThread extends Thread{
 	 * @return
 	 */
 	private String infoToSend() {
-		return Long.toString(System.currentTimeMillis());
+		double voltage = Math.sin(position*2*Math.PI/120) * (10);
+		String string = Double.toString(voltage);
+		position ++;
+		return string;
 	}
 
 	

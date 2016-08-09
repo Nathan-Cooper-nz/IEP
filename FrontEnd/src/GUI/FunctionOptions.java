@@ -58,25 +58,6 @@ public class FunctionOptions extends JPanel {
 		waves.add(tri);
 		waves.add(sq);
 
-		/*JComboBox<String> waveShape = new JComboBox<String>();
-		waveShape.addItem("Choose a wave shape");
-		waveShape.addItem("Sine");
-		waveShape.addItem("Square");
-		waveShape.addItem("Triangle");
-		DefaultListSelectionModel model = new DefaultListSelectionModel();
-		model.addSelectionInterval(1, 3);
-		//model.addSelectionInterval(3, 3);
-		EnabledComboBoxRenderer enableRend = new EnabledComboBoxRenderer(model);
-		waveShape.setRenderer(enableRend);
-		
-		waveShape.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				JComboBox<String> ws = (JComboBox<String>) e.getSource();
-				System.out.println("Shape: "+ws.getSelectedItem());
-			}
-		});*/
-
 		//add all the elements to the panel
 		panel.add(title);
 		panel.add(Box.createRigidArea(new Dimension(0,10)));

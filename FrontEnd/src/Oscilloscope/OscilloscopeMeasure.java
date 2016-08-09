@@ -1,8 +1,10 @@
 package Oscilloscope;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -21,6 +23,8 @@ public class OscilloscopeMeasure extends JPanel{
 
 		add(new JLabel("Measure Panel"));
 
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 		Border border = LineBorder.createGrayLineBorder();
 		setBorder(border);
 
