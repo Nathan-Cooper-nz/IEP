@@ -28,6 +28,7 @@ public class ClientListener extends NetworkComponent{
 		boolean run = true;
 		
 		while(run){
+			packet.setData(new byte[NetworkComponent.PACKETSIZE]);//Reset buffer
 			try {
 				//System.out.println("Listening...");
 				this.socket.receive(packet);
