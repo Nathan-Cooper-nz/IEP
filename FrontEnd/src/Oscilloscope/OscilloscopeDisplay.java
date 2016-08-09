@@ -1,5 +1,6 @@
 package Oscilloscope;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Date;
 
@@ -61,6 +62,12 @@ public class OscilloscopeDisplay extends JPanel {
         chart.removeLegend();
         
         XYPlot plot = (XYPlot)chart.getPlot();
+       // plot.setBackgroundPaint(Color.WHITE);
+        chart.setBackgroundPaint(oscPanel.getBackground());
+        plot.setBackgroundPaint(Color.white);
+        plot.setRangeGridlinePaint(Color.black);
+        plot.setDomainGridlinePaint(Color.black);
+        
         
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, true);
