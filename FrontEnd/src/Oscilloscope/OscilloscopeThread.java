@@ -38,8 +38,7 @@ public class OscilloscopeThread extends Thread{
 	        		double voltage = Double.parseDouble(string);
 	                display.setVoltage(voltage);
         		}
-                sleep(25);
-                
+                //sleep(10);
         	}
 
         } catch (Exception e) {
