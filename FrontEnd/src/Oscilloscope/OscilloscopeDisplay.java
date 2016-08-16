@@ -58,7 +58,6 @@ public class OscilloscopeDisplay extends JPanel {
                 true,
                 false,
                 false);
-        
         chart.removeLegend();
         
         XYPlot plot = (XYPlot)chart.getPlot();
@@ -75,7 +74,7 @@ public class OscilloscopeDisplay extends JPanel {
         NumberAxis domain = (NumberAxis) plot.getDomainAxis();
         domain.setRange(0, 10);
         domain.setTickUnit(new NumberTickUnit(1.0));
-        domain.setVerticalTickLabels(true);
+        domain.setVerticalTickLabels(false);
         
         NumberAxis range = (NumberAxis) plot.getRangeAxis();
         range.setRange(-10, 10);
