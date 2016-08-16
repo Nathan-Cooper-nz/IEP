@@ -1,13 +1,14 @@
 from socket import *
-
+import math
 import threading
 import queue
+import time
 
 class Server(threading.Thread):
 
     def __init__(self):
         self.host = gethostname()
-        self.port = 9000
+        self.port = 5843
         self.queueSize = 20
         self.address = (self.host, self.port)
 
@@ -38,7 +39,8 @@ class Server(threading.Thread):
                 print ("Typeof data", type(data.decode()))
                 if(data.decode().isdigit()):
                     self.client = (client[0],int(data.decode()))
-                    self.addToSend("Connected")
+                    print("Connected")
+                    #self.addToSend("Connected")
                     receiver_found = True;
 
                     #Start Write Thread now that client is found
@@ -56,7 +58,7 @@ class Server(threading.Thread):
     Writes to a particular socket
     '''
     def write(self):
-        i = 0
+        position = 0
         while True:
             if(not self.sendQueue.empty()):
                 message = self.sendQueue.get()
@@ -65,7 +67,13 @@ class Server(threading.Thread):
                 print(self.client)
                 self.socket.sendto(encoded_msg, self.client)
             else:
-                # self.addToSend(input("MSG: "))
+                voltage = math.sin(position*2*math.pi/30) * (8)
+                voltage = round(voltage, 5)
+                string = str(voltage)
+                position = position + 1
+                py_server.addToSend(string)
+                time.sleep(1/3)
+
 
     '''
     Adds to queue of messages to send
@@ -73,6 +81,7 @@ class Server(threading.Thread):
     '''
     def addToSend(self, msg):
         print("Adding Message: ", msg)
+        # if(not self.sendQueue.full()):
         self.sendQueue.put(msg)
 
     def recentMessage(self):
@@ -80,5 +89,10 @@ class Server(threading.Thread):
             return recQueue.get()
 
 py_server = Server()
-
-# py_server.addToSend(input("Msg to send: "))
+# position = 0
+# while True:
+#     voltage = math.sin(position*2*math.pi/30) * (8)
+#     voltage = round(voltage, 5)
+#     string = str(voltage)
+#     position = position + 1
+#     py_server.addToSend(string)
