@@ -23,16 +23,17 @@ public class DirectionPad extends JPanel{
         left = new BasicArrowButton(BasicArrowButton.WEST);
         down = new BasicArrowButton(BasicArrowButton.SOUTH);
 
-        add(label);
+        add(new JLabel());
         add(up);
-        add(label);
-        add(label);
+        add(new JLabel());
+        add(new JLabel());
         add(left);
-        add(label);
+        add(new JLabel());
         add(right);
-        add(label);
+        add(new JLabel());
+        add(new JLabel());
         add(down);
-        add(label);
+        add(new JLabel());
 	}
 	
 	public JButton getUp(){
