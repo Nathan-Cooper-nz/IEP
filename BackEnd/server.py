@@ -9,17 +9,17 @@ class Server(threading.Thread):
         self.port = 5843
         self.queueSize = 20
         self.address = (self.host, self.port)
-        self.receiver_found = False;
+        self.receiver_found = False
 
         self.client = (0,0)     #Client addr and port that info is sent to
-        self.sendQueue = queue.Queue(self.queueSize);
+        self.sendQueue = queue.Queue(self.queueSize)
 
-        self.recQueue = queue.Queue(self.queueSize);
+        self.recQueue = queue.Queue(self.queueSize)
 
         self.socket = socket(AF_INET, SOCK_DGRAM)
         self.socket.bind(self.address)
 
-        print("Server Started");
+        print("Server Started")
 
 
         #Begin Listening Thread
@@ -39,7 +39,7 @@ class Server(threading.Thread):
                     self.client = (client[0],int(data.decode()))
                     print("Connected")
                     #self.addToSend("Connected")
-                    self.receiver_found = True;
+                    self.receiver_found = True
 
                     #Start Write Thread now that client is found
                     writeThread = threading.Thread(target = self.write)
@@ -48,8 +48,8 @@ class Server(threading.Thread):
             else:
                 #Do something if clientMSG has a value
                 if data:
-                    print("Received: ", data)
-                    self.recQueue.put(data)
+                    print("Received: ", data.decode)
+                    self.recQueue.put(data.decode())
 
 
     '''
@@ -60,7 +60,7 @@ class Server(threading.Thread):
         while True:
             if(not self.sendQueue.empty()):
                 message = self.sendQueue.get()
-                print("Sending Message:",message)
+                # print("Sending Message:",message)
                 encoded_msg = message.encode()
                 print(self.client)
                 self.socket.sendto(encoded_msg, self.client)
@@ -71,13 +71,15 @@ class Server(threading.Thread):
     Use this method to tell the write thread what to send
     '''
     def addToSend(self, msg):
-        print("Adding Message: ", msg)
+        # print("Adding Message: ", msg)
         # if(not self.sendQueue.full()):
         self.sendQueue.put(msg)
 
     def recentMessage(self):
         if(not self.recQueue.empty()):
             return recQueue.get()
+        else:
+            return "empty"
 
 # py_server = Server()
 # position = 0
