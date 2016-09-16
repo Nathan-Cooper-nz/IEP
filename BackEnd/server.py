@@ -60,9 +60,7 @@ class Server(threading.Thread):
         while True:
             if(not self.sendQueue.empty()):
                 message = self.sendQueue.get()
-                # print("Sending Message:",message)
                 encoded_msg = message.encode()
-                print(self.client)
                 self.socket.sendto(encoded_msg, self.client)
 
 
