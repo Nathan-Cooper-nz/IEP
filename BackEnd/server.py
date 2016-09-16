@@ -5,7 +5,7 @@ import queue
 class Server(threading.Thread):
 
     def __init__(self):
-        self.host = gethostname()
+        self.host = "localhost"
         self.port = 5843
         self.queueSize = 20
         self.address = (self.host, self.port)

@@ -8,24 +8,24 @@ import Network.Network;
  * This is the Thread for the Oscilloscope. This thread
  * should read in the changes to be made from the sockets
  * and sends the changes to the Oscilloscope Display
- * 
+ *
  * @author nztyler
  *
  */
 public class OscilloscopeThread extends Thread{
 
 	private OscilloscopeDisplay display;
-	
+
 	public OscilloscopeThread(OscilloscopeDisplay display){
 		this.display = display;
 	}
-	
+
 	@Override
 	public void run(){
 		try {
-			
+
         	int position = 0;
-        	
+
         	Network n = new Network();
         	while (true) {
         		ArrayList<String> data = n.receive();
@@ -39,12 +39,12 @@ public class OscilloscopeThread extends Thread{
 	    			}
 
         		}
-                //sleep(10);
+                sleep(10);
         	}
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 	}
-	
+
 }
