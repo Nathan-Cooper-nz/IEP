@@ -3,58 +3,69 @@ package Oscilloscope;
 import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 public class TriggerTab extends JPanel{
-	
-	private String butt1,butt2;
 
 	public TriggerTab(){
 		JLabel trigger = new JLabel("Trigger");
-		JPanel tPanel = getRadio("Edge", "Level");
+		JRadioButton edge = new JRadioButton("Edge");
+		JRadioButton level = new JRadioButton("Level");
+		ButtonGroup tGroup = new ButtonGroup();
+		tGroup.add(edge);
+		tGroup.add(level);
 		
 		JLabel channel = new JLabel("Channel");
-		JPanel cPanel = getRadio("Channel 1", "Channel 2");
+		JRadioButton c1 = new JRadioButton("Channel 1");
+		JRadioButton c2 = new JRadioButton("Channel 2");
+		ButtonGroup cGroup = new ButtonGroup();
+		cGroup.add(c1);
+		cGroup.add(c2);
 		
 		JLabel slope = new JLabel("Slope");
-		JPanel sPanel = getRadio("Rising", "Falling");
+		JRadioButton rising = new JRadioButton("Rising");
+		JRadioButton falling = new JRadioButton("Falling");
+		ButtonGroup sGroup = new ButtonGroup();
+		sGroup.add(rising);
+		sGroup.add(falling);
 		
 		JLabel mode = new JLabel("Mode");
-		JPanel mPanel = getRadio("Auto","Normal");
+		JRadioButton auto = new JRadioButton("Auto");
+		JRadioButton normal = new JRadioButton("Normal");
+		ButtonGroup mGroup = new ButtonGroup();
+		mGroup.add(auto);
+		mGroup.add(normal);
 		
 		JLabel coupling = new JLabel("Coupling");
-		JPanel coPanel = getRadio("AC","DC");
+		JRadioButton ac = new JRadioButton("AC");
+		JRadioButton dc = new JRadioButton("DC");
+		ButtonGroup coGroup = new ButtonGroup();
+		coGroup.add(ac);
+		coGroup.add(dc);
 		 
 		setLayout(new GridLayout(5,0));
 
 		add(trigger);
-		add(tPanel);
+		add(edge);
+		add(level);
 		
 		add(channel);
-		add(cPanel);
+		add(c1);
+		add(c2);
 		
 		add(slope);
-		add(sPanel);
+		add(rising);
+		add(falling);
 		
 		add(mode);
-		add(mPanel);
+		add(auto);
+		add(normal);
 		
 		add(coupling);
-		add(coPanel);
-
-	}
-	
-	public JPanel getRadio(String butt1,String butt2){
-		JPanel radioButts = new JPanel();
-		JRadioButton b1 = new JRadioButton(butt1);
-		JRadioButton b2 = new JRadioButton(butt2);
-		
-		ButtonGroup gr = new ButtonGroup();
-		gr.add(b1);
-		gr.add(b2);
-		
-		return radioButts;
+		add(ac);
+		add(dc);	
 	}
 }
