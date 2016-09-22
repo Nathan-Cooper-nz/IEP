@@ -16,10 +16,21 @@ public class OscilloscopeThread extends Thread{
 
 	private GraphDisplay display;
 
-	private static String STRING1 = "-10,-8,-6,-4,-2,0,2,4,6,8,10";
-	private static String STRING2 = "10,8,6,4,2,0,-2,-4,-6,-8,-10";
+	private static String SINE = "0.0,3.2539,5.9452,7.6085,7.9562,6.9282,4.7023,1.6633,-1.6633,-4.7023,"
+			+ "-6.9282,-7.9562,-7.6085,-5.9452,-3.2539,0.0,3.2539,5.9452,7.6085,7.9562,6.9282,4.7023,"
+			+ "1.6633,-1.6633,-4.7023,-6.9282,-7.9562,-7.6085,-5.9452,-3.2539,0.0,3.2539,5.9452,7.6085,"
+			+ "7.9562,6.9282,4.7023,1.6633,-1.6633,-4.7023";
 	
-	
+	private static String COSINE = "8.0,7.3084,5.353,2.4721,-0.8362,-4.0,-6.4721,-7.8252,-7.8252,-6.4721,"
+			+ "-4.0,-0.8362,2.4721,5.353,7.3084,8.0,7.3084,5.353,2.4721,-0.8362,-4.0,-6.4721,-7.8252,-7.8252,"
+			+ "-6.4721,-4.0,-0.8362,2.4721,5.353,7.3084,8.0,7.3084,5.353,2.4721,-0.8362,-4.0,-6.4721,-7.8252,"
+			+ "-7.8252,-6.4721";
+
+	private static String TANGENT = "0.0,3.5618,8.8849,24.6215,-76.1149,-13.8564,-5.8123,-1.7005,1.7005,5.8123,"
+			+ "13.8564,76.1149,-24.6215,-8.8849,-3.5618,0.0,3.5618,8.8849,24.6215,-76.1149,-13.8564,-5.8123,"
+			+ "-1.7005,1.7005,5.8123,13.8564,76.1149,-24.6215,-8.8849,-3.5618,0.0,3.5618,8.8849,24.6215,-76.1149,"
+			+ "-13.8564,-5.8123,-1.7005,1.7005,5.8123";
+
 	public OscilloscopeThread(GraphDisplay display){
 		this.display = display;
 	}
@@ -27,7 +38,6 @@ public class OscilloscopeThread extends Thread{
 	@Override
 	public void run(){
 		try {
-			String toSend = STRING1;
         	// Network n = new Network();
         	while (true) {
 //        		ArrayList<String> data = n.receive();
@@ -40,14 +50,8 @@ public class OscilloscopeThread extends Thread{
 //	    			}
 //
 //        		}
-        		
-        		display.setVoltage(toSend);
+        		display.setVoltage(SINE, COSINE, TANGENT);
                 sleep(5000);
-                if (toSend.equals(STRING1)) { 
-                	toSend = STRING2;
-                } else {
-                	toSend = STRING1;
-                }
         	}
 
         } catch (Exception e) {

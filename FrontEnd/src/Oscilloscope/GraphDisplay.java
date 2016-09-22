@@ -139,19 +139,34 @@ public class GraphDisplay extends JPanel {
      * The format for the string atm is 1,2,3,4,5,6,7,8.....
      * @param data the data to be parsed and added to voltages
      */
-    public void setVoltage(String data) {
+    public void setVoltage(String first, String second, String third) {
     	
     	resetVoltages();
     	
     	//remove out any initial characters if formatting is wrong
-    	//anything after here should be in the format 1,2,3,4,5,...,etc
-    	List<String> strValues = Arrays.asList(data.split(","));
-    	for (int index = 0; index < strValues.size(); index ++) {
-    		double value = Double.parseDouble(strValues.get(index));
-    		ch1Voltages.add(index, value);
-    		ch2Voltages.add(index, -value);
-    		funcVoltages.add(index, value/2);
+    	
+    	if (first != null){
+    	List<String> strValues = Arrays.asList(first.split(","));
+	    	for (int index = 0; index < strValues.size(); index ++) {
+	    		System.out.println(strValues.get(index));
+	    		double value = Double.parseDouble(strValues.get(index));
+	    		ch1Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
+	    	}
     	}
+    	if (second != null){
+        	List<String> strValues = Arrays.asList(second.split(","));
+    	    for (int index = 0; index < strValues.size(); index ++) {
+    	    	double value = Double.parseDouble(strValues.get(index));
+    	    	ch2Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
+    	    }
+        }
+    	if (second != null){
+        	List<String> strValues = Arrays.asList(third.split(","));
+    	    	for (int index = 0; index < strValues.size(); index ++) {
+    	    		double value = Double.parseDouble(strValues.get(index));
+    	    		funcVoltages.add((double)index / (double) strValues.size() * 10.0 , value);
+    	    	}
+        	}
     }
 
 }
