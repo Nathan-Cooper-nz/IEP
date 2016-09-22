@@ -33,7 +33,11 @@ public class GraphDisplay extends JPanel {
 
 	private Date startDate;
 	private long startTime;
-	private XYSeries voltages;
+	
+	// voltages to be displayed on the graphs
+	private XYSeries ch1Voltages;
+	private XYSeries ch2Voltages;
+	private XYSeries funcVoltages;
 
 	private OscilloscopePanel oscPanel;	//I may not even need this
 	private OscilloscopeThread oscThread;
@@ -42,15 +46,16 @@ public class GraphDisplay extends JPanel {
 		this.oscPanel = oscPanel;
 		oscThread = new OscilloscopeThread(this);
 
-		startDate = new Date();
-		startTime = startDate.getTime();
-
-		voltages = new XYSeries("Voltages");
-		//Set the initial time/voltages to 0,0
-		voltages.add(0, 0);
-
+		ch1Voltages = new XYSeries("CH1");
+		ch2Voltages = new XYSeries("CH2");
+		funcVoltages = new XYSeries("Func");
+		
+		resetVoltages();
+		
 		XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(voltages);
+        dataset.addSeries(ch1Voltages);
+        dataset.addSeries(ch2Voltages);
+        dataset.addSeries(funcVoltages);
 
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Oscilloscope",
@@ -89,6 +94,16 @@ public class GraphDisplay extends JPanel {
         add(chartPanel);
         validate();
 	}
+	
+	public void resetVoltages(){
+		ch1Voltages.clear();
+		ch2Voltages.clear();
+		funcVoltages.clear();
+		
+		ch1Voltages.add(0, 0);
+		ch2Voltages.add(0, 0);
+		funcVoltages.add(0, 0);
+	}
 
 	public OscilloscopeThread getOscilloscopeThread(){
 		return oscThread;
@@ -111,13 +126,13 @@ public class GraphDisplay extends JPanel {
 
         	Runnable clearData = new Runnable() {
                 public void run() {
-                	voltages.clear();
+                	ch1Voltages.clear();
                 }
             };
         	SwingUtilities.invokeLater(clearData);
         }
         
-        voltages.add(currentTime, voltage);
+        ch1Voltages.add(currentTime, voltage);
     }
     
     /**
@@ -126,14 +141,16 @@ public class GraphDisplay extends JPanel {
      */
     public void setVoltage(String data) {
     	
-    	voltages.clear();
+    	resetVoltages();
+    	
     	//remove out any initial characters if formatting is wrong
     	//anything after here should be in the format 1,2,3,4,5,...,etc
-    	
     	List<String> strValues = Arrays.asList(data.split(","));
     	for (int index = 0; index < strValues.size(); index ++) {
     		double value = Double.parseDouble(strValues.get(index));
-    		voltages.add(index, value);
+    		ch1Voltages.add(index, value);
+    		ch2Voltages.add(index, -value);
+    		funcVoltages.add(index, value/2);
     	}
     }
 
