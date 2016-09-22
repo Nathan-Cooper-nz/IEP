@@ -19,11 +19,11 @@ class FunctionGen:
         self.type = t
 
     def setValues(self, t, a, f, p):
-        self.setAmp(a)
-        self.setFreq(f)
-        self.setPer(p)
-        self.setType(t)
-        self.update()
+        self._setAmp(a)
+        self._setFreq(f)
+        self._setPer(p)
+        self._setType(t)
+        # self._update()
 
 
     def _update(self):

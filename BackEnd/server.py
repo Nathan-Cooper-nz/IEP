@@ -48,7 +48,7 @@ class Server(threading.Thread):
             else:
                 #Do something if clientMSG has a value
                 if data:
-                    print("Received: ", data.decode)
+                    print("Received: ", data.decode())
                     self.recQueue.put(data.decode())
 
 
@@ -75,7 +75,7 @@ class Server(threading.Thread):
 
     def recentMessage(self):
         if(not self.recQueue.empty()):
-            return recQueue.get()
+            return self.recQueue.get()
         else:
             return "empty"
 

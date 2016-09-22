@@ -15,9 +15,12 @@ import Network.Network;
 public class OscilloscopeThread extends Thread{
 
 	private OscilloscopeDisplay display;
+	private Network n;
 
 	public OscilloscopeThread(OscilloscopeDisplay display){
 		this.display = display;
+		this.n = new Network();
+
 	}
 
 	@Override
@@ -26,7 +29,6 @@ public class OscilloscopeThread extends Thread{
 
         	int position = 0;
 
-        	Network n = new Network();
         	while (true) {
         		ArrayList<String> data = n.receive();
         		if(data.size() > 0){
@@ -45,6 +47,10 @@ public class OscilloscopeThread extends Thread{
         } catch (Exception e) {
             e.printStackTrace();
         }
+	}
+	
+	public Network getNetwork(){
+		return n;
 	}
 
 }
