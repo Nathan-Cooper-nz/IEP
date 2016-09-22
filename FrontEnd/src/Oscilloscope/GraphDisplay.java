@@ -160,7 +160,7 @@ public class GraphDisplay extends JPanel {
     	    	ch2Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
     	    }
         }
-    	if (second != null){
+    	if (third != null){
         	List<String> strValues = Arrays.asList(third.split(","));
     	    	for (int index = 0; index < strValues.size(); index ++) {
     	    		double value = Double.parseDouble(strValues.get(index));
