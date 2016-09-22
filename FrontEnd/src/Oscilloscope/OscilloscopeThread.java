@@ -16,6 +16,10 @@ public class OscilloscopeThread extends Thread{
 
 	private OscilloscopeDisplay display;
 
+	private static String STRING1 = "-10,-8,-6,-4,-2,0,2,4,6,8,10";
+	private static String STRING2 = "10,8,6,4,2,0,-2,-4,-6,-8,-10";
+	
+	
 	public OscilloscopeThread(OscilloscopeDisplay display){
 		this.display = display;
 	}
@@ -23,23 +27,27 @@ public class OscilloscopeThread extends Thread{
 	@Override
 	public void run(){
 		try {
-
-        	int position = 0;
-
-        	Network n = new Network();
+			String toSend = STRING1;
+        	// Network n = new Network();
         	while (true) {
-        		ArrayList<String> data = n.receive();
-        		if(data.size() > 0){
-	    			String string = "";
-	        		for (int i = 0; i < data.size(); i++) {
-	    				string = data.get(i).trim();
-	    				position++;
-		        		double voltage = Double.parseDouble(string);
-		                display.setVoltage(voltage);
-	    			}
-
-        		}
-                sleep(10);
+//        		ArrayList<String> data = n.receive();
+//        		if(data.size() > 0){
+//	    			String string = "";
+//	        		for (int i = 0; i < data.size(); i++) {
+//	    				string = data.get(i).trim();
+//		        		double voltage = Double.parseDouble(string);
+//		                display.addVoltage(voltage);
+//	    			}
+//
+//        		}
+        		
+        		display.setVoltage(toSend);
+                sleep(5000);
+                if (toSend.equals(STRING1)) { 
+                	toSend = STRING2;
+                } else {
+                	toSend = STRING1;
+                }
         	}
 
         } catch (Exception e) {

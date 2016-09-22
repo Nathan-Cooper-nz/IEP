@@ -2,7 +2,10 @@ package Oscilloscope;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -67,7 +70,6 @@ public class OscilloscopeDisplay extends JPanel {
         plot.setRangeGridlinePaint(Color.black);
         plot.setDomainGridlinePaint(Color.black);
 
-
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, true);
 
@@ -98,7 +100,7 @@ public class OscilloscopeDisplay extends JPanel {
      *
      * @param voltage Value to set on the oscilloscope.
      */
-    void setVoltage(double voltage) {
+    public void addVoltage(double voltage) {
 
     	Date currentDate = new Date();
     	double currentTime = (currentDate.getTime() - startTime) / 1000.0;
@@ -119,4 +121,24 @@ public class OscilloscopeDisplay extends JPanel {
 
         voltages.add(currentTime, voltage);
     }
+    /**
+     * The format for the string atm is 1,2,3,4,5,6,7,8.....
+     * @param data the data to be parsed and added to voltages
+     */
+    public void setVoltage(String data) {
+    	
+    	voltages.clear();
+    	
+    	//remove out any initial characters if formatting is wrong
+    	List<String> strValues = Arrays.asList(data.split(","));
+    	List<Double> doubValues = new ArrayList<Double>();
+    	for (int index = 0; index < strValues.size(); index ++) {
+    		doubValues.add(Double.parseDouble(strValues.get(index)));
+    	}
+    	
+    	for (int index = 0; index < doubValues.size(); index ++) {
+    		voltages.add(index, doubValues.get(index));
+    	}
+    }
+
 }
