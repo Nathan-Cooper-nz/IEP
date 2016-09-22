@@ -39,7 +39,7 @@ public class OscilloscopePanel extends JPanel {
 	private boolean channelOneOn = false;
 	private boolean channelTwoOn = false;
 	
-	private OscilloscopeDisplay display;
+	private GraphDisplay display;
 	
     public OscilloscopePanel(){
     	Border border = LineBorder.createGrayLineBorder();
@@ -47,7 +47,7 @@ public class OscilloscopePanel extends JPanel {
         setLayout(new GridBagLayout());
         
         //add the oscilloscope display and buttons
-        display = new OscilloscopeDisplay(this);
+        display = new GraphDisplay(this);
         JPanel sidePanel = new JPanel();
         sidePanel.setLayout(new GridBagLayout());
         
@@ -89,7 +89,7 @@ public class OscilloscopePanel extends JPanel {
     }
     
     //This is the only getter we need
-    public OscilloscopeDisplay getOscilloscopeDisplay(){
+    public GraphDisplay getOscilloscopeDisplay(){
     	return display;
     }
     

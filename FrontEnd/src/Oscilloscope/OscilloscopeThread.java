@@ -14,13 +14,13 @@ import Network.Network;
  */
 public class OscilloscopeThread extends Thread{
 
-	private OscilloscopeDisplay display;
+	private GraphDisplay display;
 
 	private static String STRING1 = "-10,-8,-6,-4,-2,0,2,4,6,8,10";
 	private static String STRING2 = "10,8,6,4,2,0,-2,-4,-6,-8,-10";
 	
 	
-	public OscilloscopeThread(OscilloscopeDisplay display){
+	public OscilloscopeThread(GraphDisplay display){
 		this.display = display;
 	}
 

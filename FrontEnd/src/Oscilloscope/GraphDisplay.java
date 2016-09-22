@@ -29,7 +29,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author nztyler
  *
  */
-public class OscilloscopeDisplay extends JPanel {
+public class GraphDisplay extends JPanel {
 
 	private Date startDate;
 	private long startTime;
@@ -38,7 +38,7 @@ public class OscilloscopeDisplay extends JPanel {
 	private OscilloscopePanel oscPanel;	//I may not even need this
 	private OscilloscopeThread oscThread;
 
-	public OscilloscopeDisplay(OscilloscopePanel oscPanel){
+	public GraphDisplay(OscilloscopePanel oscPanel){
 		this.oscPanel = oscPanel;
 		oscThread = new OscilloscopeThread(this);
 
@@ -106,7 +106,6 @@ public class OscilloscopeDisplay extends JPanel {
     	double currentTime = (currentDate.getTime() - startTime) / 1000.0;
 
         if (currentTime > 10.0) {
-
         	startTime = currentDate.getTime();
         	currentTime = 0.0;
 
@@ -115,12 +114,12 @@ public class OscilloscopeDisplay extends JPanel {
                 	voltages.clear();
                 }
             };
-
         	SwingUtilities.invokeLater(clearData);
         }
-
+        
         voltages.add(currentTime, voltage);
     }
+    
     /**
      * The format for the string atm is 1,2,3,4,5,6,7,8.....
      * @param data the data to be parsed and added to voltages
@@ -128,16 +127,13 @@ public class OscilloscopeDisplay extends JPanel {
     public void setVoltage(String data) {
     	
     	voltages.clear();
-    	
     	//remove out any initial characters if formatting is wrong
-    	List<String> strValues = Arrays.asList(data.split(","));
-    	List<Double> doubValues = new ArrayList<Double>();
-    	for (int index = 0; index < strValues.size(); index ++) {
-    		doubValues.add(Double.parseDouble(strValues.get(index)));
-    	}
+    	//anything after here should be in the format 1,2,3,4,5,...,etc
     	
-    	for (int index = 0; index < doubValues.size(); index ++) {
-    		voltages.add(index, doubValues.get(index));
+    	List<String> strValues = Arrays.asList(data.split(","));
+    	for (int index = 0; index < strValues.size(); index ++) {
+    		double value = Double.parseDouble(strValues.get(index));
+    		voltages.add(index, value);
     	}
     }
 
