@@ -148,7 +148,6 @@ public class GraphDisplay extends JPanel {
     	if (first != null){
     	List<String> strValues = Arrays.asList(first.split(","));
 	    	for (int index = 0; index < strValues.size(); index ++) {
-	    		System.out.println(strValues.get(index));
 	    		double value = Double.parseDouble(strValues.get(index));
 	    		ch1Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
 	    	}
