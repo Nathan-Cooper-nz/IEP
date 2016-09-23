@@ -38,8 +38,16 @@ public class OscilloscopeThread extends Thread{
 	@Override
 	public void run(){
 		try {
-        	// Network n = new Network();
+        	 Network n = new Network();
         	while (true) {
+        		ArrayList<String> data = n.receive();
+        		if(!data.isEmpty()){
+            		String noArray = data.toString().replace('[', ' ');
+            		noArray = noArray.replace(']', ' ');
+            		System.out.println(noArray);        			
+            		display.setVoltage(noArray, null, null);
+
+        		}
 //        		ArrayList<String> data = n.receive();
 //        		if(data.size() > 0){
 //	    			String string = "";
@@ -50,8 +58,8 @@ public class OscilloscopeThread extends Thread{
 //	    			}
 //
 //        		}
-        		display.setVoltage(SINE, COSINE, TANGENT);
-                sleep(5000);
+//        		display.setVoltage(SINE, COSINE, TANGENT);
+//                sleep(5);
         	}
 
         } catch (Exception e) {

@@ -8,11 +8,13 @@ import threading
 class MiddleWare:
 
     def __init__(self):
+        self.points = 90
+
         self.server = Server()
-        self.spi = Spi()
+        self.spi = Spi(self.points)
         self.queueSize = 20
         self.proccessQueue = queue.Queue(self.queueSize)
-
+        self.oscWindow_1 = []
 
         self.funcGen = FunctionGen("sin", 0, 0, 0)
 
@@ -37,7 +39,8 @@ class MiddleWare:
             else:
                 data = self.spi.read()
                 self.proccess(str(data))
-                time.sleep(1/9)
+                hz = 40000
+                time.sleep(1/hz)
 
 
     def proccess(self, data):
@@ -48,7 +51,13 @@ class MiddleWare:
         proccessedData = data
         if(self.proccessQueue.full()):
             self.proccessQueue.get()
-        self.proccessQueue.put(str(proccessedData))
+        if(len(self.oscWindow_1) < self.points):
+            self.oscWindow_1.append(str(proccessedData))
+        else:
+            tmp = list(self.oscWindow_1)
+            window = ', '.join(tmp)
+            self.proccessQueue.put(window)
+            self.oscWindow_1 = []
 
     def serverRead(self):
         while(True):
@@ -67,11 +76,11 @@ class MiddleWare:
 
 class Spi:
 
-    def __init__(self):
-        self.x =0
+    def __init__(self,points):
+        self.points =points
         self.pos = 0
     def read(self):
-        voltage = math.sin(self.pos*2*math.pi/30) * (8)
+        voltage = math.sin(self.pos*2*math.pi/self.points) * (8)
         voltage = round(voltage, 5)
         string = str(voltage)
         self.pos = self.pos + 1
