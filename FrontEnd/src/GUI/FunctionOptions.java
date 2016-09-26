@@ -29,16 +29,22 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicArrowButton;
 
+import Network.Network;
+
 public class FunctionOptions extends JPanel {
 
 	public int frequency;
 	public int amplitude;
 	public int period;
+	public String type = "sine";
+	
+	private Network net;
 
-	public FunctionOptions(){
+	public FunctionOptions(Network net){
 		GridBagConstraints gbc = new GridBagConstraints();
 		setLayout(new GridBagLayout());
 		add(getButtons(), gbc);
+		this.net = net;
 	}
 
 	public JPanel getButtons(){
@@ -58,6 +64,20 @@ public class FunctionOptions extends JPanel {
 		waves.add(tri);
 		waves.add(sq);
 
+		ActionListener JRadioListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				type = arg0.getActionCommand();
+				sendUpdate();
+			}
+		};
+		
+		sine.addActionListener(JRadioListener);
+		tri.addActionListener(JRadioListener);
+		sq.addActionListener(JRadioListener);
+		
+		
 		//add all the elements to the panel
 		panel.add(title);
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -80,7 +100,7 @@ public class FunctionOptions extends JPanel {
 		panel.setLayout(new GridLayout(3,0));
 		
 		JLabel f = new JLabel("Frequency: ");
-		JTextField fr = new JTextField("0");
+		JTextField fr = new JTextField("1");
 		frequency = Integer.parseInt(fr.getText());
 		UpDown fud = new UpDown();
 		fud.up.addActionListener(new ActionListener() {
@@ -89,6 +109,8 @@ public class FunctionOptions extends JPanel {
 				int t = Integer.parseInt(fr.getText());
 				t++;
 				fr.setText(t + "");
+				frequency = t;
+				sendUpdate();
 			}
 		});
 		fud.down.addActionListener(new ActionListener() {
@@ -97,6 +119,8 @@ public class FunctionOptions extends JPanel {
 				int t = Integer.parseInt(fr.getText());
 				t = t-1;
 				fr.setText(t + "");
+				frequency = t;
+				sendUpdate();
 			}
 		});
 		
@@ -106,7 +130,7 @@ public class FunctionOptions extends JPanel {
 		panel.add(Box.createRigidArea(new Dimension(0,10)));	
 		
 		JLabel a = new JLabel("Amplitude: ");
-		JTextField am = new JTextField("0");
+		JTextField am = new JTextField("1");
 		amplitude = Integer.parseInt(am.getText());
 		UpDown aud = new UpDown();
 		
@@ -116,6 +140,8 @@ public class FunctionOptions extends JPanel {
 				int t = Integer.parseInt(am.getText());
 				t++;
 				am.setText(t + "");
+				amplitude = t;
+				sendUpdate();
 			}
 		});
 		aud.down.addActionListener(new ActionListener() {
@@ -124,6 +150,8 @@ public class FunctionOptions extends JPanel {
 				int t = Integer.parseInt(am.getText());
 				t = t-1;
 				am.setText(t + "");
+				amplitude = t;
+				sendUpdate();
 			}
 		});
 		
@@ -133,7 +161,7 @@ public class FunctionOptions extends JPanel {
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		JLabel p = new JLabel("Period: ");
-		JTextField pe = new JTextField("0");
+		JTextField pe = new JTextField("1");
 		period = Integer.parseInt(pe.getText());
 		UpDown pud = new UpDown();
 		
@@ -143,6 +171,8 @@ public class FunctionOptions extends JPanel {
 				int t = Integer.parseInt(pe.getText());
 				t++;
 				pe.setText(t + "");
+				period = t;
+				sendUpdate();
 			}
 		});
 		pud.down.addActionListener(new ActionListener() {
@@ -151,6 +181,8 @@ public class FunctionOptions extends JPanel {
 				int t = Integer.parseInt(pe.getText());
 				t = t-1;
 				pe.setText(t + "");
+				period = t;
+				sendUpdate();
 			}
 		});
 		
@@ -160,4 +192,20 @@ public class FunctionOptions extends JPanel {
 		
 		return panel;
 	}
+
+	private void sendUpdate(){
+		StringBuilder string = new StringBuilder();
+		string.append("fcnGen,");
+		string.append(type);
+		string.append(',');
+		string.append(amplitude);
+		string.append(',');
+		string.append(frequency);
+		string.append(',');
+		string.append(period);
+		net.send(string.toString());
+		
+	}
+	
+	
 }

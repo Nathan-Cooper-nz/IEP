@@ -15,7 +15,9 @@ import Network.Network;
 public class OscilloscopeThread extends Thread{
 
 	private GraphDisplay display;
-
+	private Network n;
+	
+	
 	private static String SINE = "0.0,3.2539,5.9452,7.6085,7.9562,6.9282,4.7023,1.6633,-1.6633,-4.7023,"
 			+ "-6.9282,-7.9562,-7.6085,-5.9452,-3.2539,0.0,3.2539,5.9452,7.6085,7.9562,6.9282,4.7023,"
 			+ "1.6633,-1.6633,-4.7023,-6.9282,-7.9562,-7.6085,-5.9452,-3.2539,0.0,3.2539,5.9452,7.6085,"
@@ -33,12 +35,12 @@ public class OscilloscopeThread extends Thread{
 
 	public OscilloscopeThread(GraphDisplay display){
 		this.display = display;
+		this.n= new Network();
 	}
 
 	@Override
 	public void run(){
 		try {
-        	 Network n = new Network();
         	while (true) {
         		ArrayList<String> data = n.receive();
         		if(!data.isEmpty()){
@@ -65,6 +67,11 @@ public class OscilloscopeThread extends Thread{
         } catch (Exception e) {
             e.printStackTrace();
         }
+	}
+
+	public Network getNetwork() {
+		// TODO Auto-generated method stub
+		return n;
 	}
 
 }

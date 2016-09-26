@@ -75,7 +75,7 @@ class Server(threading.Thread):
 
     def recentMessage(self):
         if(not self.recQueue.empty()):
-            return recQueue.get()
+            return self.recQueue.get()
         else:
             return "empty"
 

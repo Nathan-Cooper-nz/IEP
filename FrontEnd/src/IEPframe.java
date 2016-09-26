@@ -32,7 +32,7 @@ public class IEPframe extends JFrame {
         oscPanel = new OscilloscopePanel();
         oscOptions = new OscilloscopeOptions();
         oscMeasure = new OscilloscopeMeasure();
-        fGenOptions = new FunctionOptions();
+        fGenOptions = new FunctionOptions(getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().getNetwork());
         //Add displays to the frame
         addComp(panel, oscPanel, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);
