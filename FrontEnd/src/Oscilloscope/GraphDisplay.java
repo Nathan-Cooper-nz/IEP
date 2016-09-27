@@ -1,5 +1,6 @@
 package Oscilloscope;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class GraphDisplay extends JPanel {
         plot.setBackgroundPaint(Color.white);
         plot.setRangeGridlinePaint(Color.black);
         plot.setDomainGridlinePaint(Color.black);
+        plot.getRenderer().setSeriesStroke(0, new BasicStroke(3.0f));
 
         NumberAxis domain = (NumberAxis) plot.getDomainAxis();
         domain.setRange(0, 10);
