@@ -6,26 +6,26 @@ class FunctionGen:
         self.period = p
         self.type = t
 
-    def _setAmp(self, a):
+    def setAmp(self, a):
         self.amplitude = a
 
-    def _setFreq(self, f):
+    def setFreq(self, f):
         self.frequency = f
 
-    def _setPer(self, p):
+    def setPer(self, p):
         self.period = p
 
-    def _setType(self, t):
+    def setType(self, t):
         self.type = t
 
     def setValues(self, t, a, f, p):
-        self.setAmp(a)
-        self.setFreq(f)
-        self.setPer(p)
+        self.setAmp(int(a))
+        self.setFreq(int(f))
+        self.setPer(int(p))
         self.setType(t)
         self.update()
 
 
-    def _update(self):
+    def update(self):
         print(self.type, self.amplitude, self.frequency, self.period)
         print("send to usb")

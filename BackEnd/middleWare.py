@@ -8,7 +8,7 @@ import threading
 class MiddleWare:
 
     def __init__(self):
-        self.points = 90
+        self.points = 60
 
         self.server = Server()
         self.spi = Spi(self.points)
@@ -16,7 +16,6 @@ class MiddleWare:
         self.proccessQueue = queue.Queue(self.queueSize)
         self.oscWindow_1 = []
 
-        self.funcGen = FunctionGen("sin", 0, 0, 0)
 
         #Thread to handle reading from SPI then writing to Server
         spiThread = threading.Thread(target = self.spiRead)
@@ -25,6 +24,8 @@ class MiddleWare:
 
         #Thread to handle reading from Server then writing to SPI
         serverThread = threading.Thread(target = self.serverRead)
+        serverThread.deamon = True
+        serverThread.start()
 
     def spiRead(self):
         """ reads from the spi then proccess the data before passing on to server.py
@@ -51,7 +52,7 @@ class MiddleWare:
         proccessedData = data
         if(self.proccessQueue.full()):
             self.proccessQueue.get()
-        if(len(self.oscWindow_1) < self.points):
+        if(len(self.oscWindow_1) < self.points-1):
             self.oscWindow_1.append(str(proccessedData))
         else:
             tmp = list(self.oscWindow_1)
@@ -61,9 +62,9 @@ class MiddleWare:
 
     def serverRead(self):
         while(True):
-            userInput = self.server.read()
+            userInput = self.server.recentMessage()
             if(userInput != "empty"):
-                parseUser(userInput)
+                self.parseUser(userInput)
 
     def parseUser(self, text):
         splitText = text.split(",")
@@ -72,18 +73,28 @@ class MiddleWare:
             amp = splitText[2]
             freq = splitText[3]
             per = splitText[4]
-            self.funcGen.setValues(func, amp, freq, per)
+            self.spi.funcGen.setValues(func, amp, freq, per)
 
 class Spi:
 
     def __init__(self,points):
         self.points =points
         self.pos = 0
+        #FunctionGen(Type, Amp, Freq, Peri)
+        self.funcGen = FunctionGen("sin", 5, 1, 5)
+
     def read(self):
-        voltage = math.sin(self.pos*2*math.pi/self.points) * (8)
-        voltage = round(voltage, 5)
+        amp  = self.funcGen.amplitude
+        freq = self.funcGen.frequency
+        angle = self.pos * math.pi/180
+        voltage = math.sin(freq*angle) * (amp)
+
+        # voltage = math.sin(self.pos*2*math.pi/self.points) * (amp)
+        voltage = round(voltage, 3)
         string = str(voltage)
         self.pos = self.pos + 1
+        # if(self.pos==360):
+        #     self.pos = 0;
         return string
 
 
