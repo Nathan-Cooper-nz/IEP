@@ -75,9 +75,6 @@ public class GraphDisplay extends JPanel {
         plot.setRangeGridlinePaint(Color.black);
         plot.setDomainGridlinePaint(Color.black);
 
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesLinesVisible(0, true);
-
         NumberAxis domain = (NumberAxis) plot.getDomainAxis();
         domain.setRange(0, 10);
         domain.setTickUnit(new NumberTickUnit(1.0));
@@ -86,8 +83,6 @@ public class GraphDisplay extends JPanel {
         NumberAxis range = (NumberAxis) plot.getRangeAxis();
         range.setRange(-10, 10);
         range.setTickUnit(new NumberTickUnit(1.0));
-
-        plot.setRenderer(renderer);
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(800, 400));
