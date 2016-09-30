@@ -99,7 +99,10 @@ public class ChannelTab extends JPanel{
     	JPanel right = new JPanel();   	
         right.setLayout(new GridBagLayout());
         
-    	addComp(right, auto, 0, 0, 1, 1, 1, 0.05);
+        JPanel autosetPanel = new JPanel();
+        autosetPanel.add(auto);
+        
+    	addComp(right, autosetPanel, 0, 0, 1, 1, 1, 0.05);
     	addComp(right, dPad, 0, 1, 1, 1, 1, 0.55);
         addComp(right, probePanel, 0, 2, 1, 1, 1, 0.2);
         addComp(right, couplePanel, 0, 3, 1, 1, 1, 0.2);

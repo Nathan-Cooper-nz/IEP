@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
 
 public class CursorTab extends JPanel{
-
+//./
 	public CursorTab(){
     	GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
