@@ -34,7 +34,7 @@ public class GraphDisplay extends JPanel {
 
 	private Date startDate;
 	private long startTime;
-	
+
 	// voltages to be displayed on the graphs
 	private XYSeries ch1Voltages;
 	private XYSeries ch2Voltages;
@@ -50,9 +50,9 @@ public class GraphDisplay extends JPanel {
 		ch1Voltages = new XYSeries("CH1");
 		ch2Voltages = new XYSeries("CH2");
 		funcVoltages = new XYSeries("Func");
-		
+
 		resetVoltages();
-		
+
 		XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(ch1Voltages);
         dataset.addSeries(ch2Voltages);
@@ -91,12 +91,12 @@ public class GraphDisplay extends JPanel {
         add(chartPanel);
         validate();
 	}
-	
+
 	public void resetVoltages(){
 		ch1Voltages.clear();
 		ch2Voltages.clear();
 		funcVoltages.clear();
-		
+
 		ch1Voltages.add(0, 0);
 		ch2Voltages.add(0, 0);
 		funcVoltages.add(0, 0);
@@ -128,41 +128,44 @@ public class GraphDisplay extends JPanel {
             };
         	SwingUtilities.invokeLater(clearData);
         }
-        
+
         ch1Voltages.add(currentTime, voltage);
     }
-    
+
     /**
      * The format for the string atm is 1,2,3,4,5,6,7,8.....
      * @param data the data to be parsed and added to voltages
      */
     public void setVoltage(String first, String second, String third) {
-    	
+
     	resetVoltages();
-    	
+
     	//remove out any initial characters if formatting is wrong
-    	
+
     	if (first != null){
-    	List<String> strValues = Arrays.asList(first.split(","));
+    		List<String> strValues = Arrays.asList(first.split(","));
 	    	for (int index = 0; index < strValues.size(); index ++) {
-	    		double value = Double.parseDouble(strValues.get(index));
-	    		ch1Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
+	    		if(!(strValues.get(index).isEmpty())){
+		    		System.out.println(strValues.get(index));
+		    		double value = Double.parseDouble(strValues.get(index));
+		    		ch1Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
+	    		}    		
 	    	}
     	}
     	if (second != null){
-        	List<String> strValues = Arrays.asList(second.split(","));
-    	    for (int index = 0; index < strValues.size(); index ++) {
-    	    	double value = Double.parseDouble(strValues.get(index));
-    	    	ch2Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
-    	    }
-        }
+      	List<String> strValues = Arrays.asList(second.split(","));
+  	    for (int index = 0; index < strValues.size(); index ++) {
+  	    	double value = Double.parseDouble(strValues.get(index));
+  	    	ch2Voltages.add((double)index / (double) strValues.size() * 10.0 , value);
+  	    }
+      }
     	if (third != null){
-        	List<String> strValues = Arrays.asList(third.split(","));
-    	    	for (int index = 0; index < strValues.size(); index ++) {
-    	    		double value = Double.parseDouble(strValues.get(index));
-    	    		funcVoltages.add((double)index / (double) strValues.size() * 10.0 , value);
-    	    	}
-        	}
+	    	List<String> strValues = Arrays.asList(third.split(","));
+	    	for (int index = 0; index < strValues.size(); index ++) {
+	    		double value = Double.parseDouble(strValues.get(index));
+	    		funcVoltages.add((double)index / (double) strValues.size() * 10.0 , value);
+	    	}
+    	}
     }
 
 }

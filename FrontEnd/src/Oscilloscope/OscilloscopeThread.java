@@ -44,9 +44,9 @@ public class OscilloscopeThread extends Thread{
         	while (true) {
         		ArrayList<String> data = n.receive();
         		if(!data.isEmpty()){
-            		String noArray = data.toString().replace('[', ' ');
-            		noArray = noArray.replace(']', ' ');    			
-            		display.setVoltage(noArray, null, null);
+        			System.out.println(data.get(0));
+        			System.out.println(data.get(0).split(",").length);
+            		display.setVoltage(data.get(0), null, null);
 
         		}
 //        		ArrayList<String> data = n.receive();
