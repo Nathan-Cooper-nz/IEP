@@ -8,7 +8,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public abstract class NetworkComponent extends Thread{
 	
-	public static final int PACKETSIZE = 1024;
+	public static final int PACKETSIZE = 1024*3;
 	public static final int BUFFERSIZE = 100;
 	
 	protected DatagramSocket socket;

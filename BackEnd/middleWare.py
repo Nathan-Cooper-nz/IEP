@@ -1,5 +1,6 @@
 from server import *
 from functionGen import *
+from trigger import *
 import math
 import time
 import queue
@@ -16,6 +17,7 @@ class MiddleWare:
         self.proccessQueue = queue.Queue(self.queueSize)
         self.oscWindow_1 = []
 
+        self.trigger = Trigger(1,2)
 
         #Thread to handle reading from SPI then writing to Server
         spiThread = threading.Thread(target = self.spiRead)
@@ -42,6 +44,7 @@ class MiddleWare:
                 self.proccess(str(data))
                 hz = 40000
                 time.sleep(1/hz)
+                # time.sleep(.25)
 
 
     def proccess(self, data):
@@ -49,16 +52,45 @@ class MiddleWare:
             data: var
                 The data to be proccessed
         """
-        proccessedData = data
+        proccessedData = float(data)
+        # print(proccessedData)
         if(self.proccessQueue.full()):
             self.proccessQueue.get()
-        if(len(self.oscWindow_1) < self.points-1):
-            self.oscWindow_1.append(str(proccessedData))
-        else:
-            tmp = list(self.oscWindow_1)
+
+        if(self.trigger.readyToSend):
+            print("Send Data")
+            trigger_window = list(self.trigger.window)
+            tmp = []
+            size = len(self.trigger.window)
+            i = 0
+            while i < size:
+                tmp.append(str(trigger_window[i]))
+                i = i + 1
+
             window = ', '.join(tmp)
+            print(len(tmp))
             self.proccessQueue.put(window)
-            self.oscWindow_1 = []
+
+        if(float(proccessedData) >= self.trigger.level and not self.trigger.record):
+            # print("HERE")
+            self.trigger.beginWindow(float(proccessedData))
+        # if(self.trigger.level>= 0  and self.trigger.level >=proccessedData):
+        #     self.trigger.beginWindow(proccessedData)
+        # elif(self.trigger.level< 0  and self.trigger.level <proccessedData):
+        #     self.trigger.beginWindow(proccessedData)
+
+        if(self.trigger.record):
+            self.trigger.addToWindow(proccessedData)
+
+            # self.trigger = []
+
+        # if(len(self.oscWindow_1) < self.points-1):
+        #     self.oscWindow_1.append(str(proccessedData))
+        # else:
+        #     tmp = list(self.oscWindow_1)
+        #     window = ', '.join(tmp)
+        #     self.proccessQueue.put(window)
+        #     self.oscWindow_1 = []
 
     def serverRead(self):
         while(True):
@@ -74,14 +106,15 @@ class MiddleWare:
             freq = splitText[3]
             per = splitText[4]
             self.spi.funcGen.setValues(func, amp, freq, per)
+            self.trigger.purge()
 
 class Spi:
 
     def __init__(self,points):
         self.points =points
-        self.pos = 0
+        self.pos = 30
         #FunctionGen(Type, Amp, Freq, Peri)
-        self.funcGen = FunctionGen("sin", 5, 1, 5)
+        self.funcGen = FunctionGen("sin", 1, 1, 1)
 
     def read(self):
         amp  = self.funcGen.amplitude

@@ -42,24 +42,13 @@ public class OscilloscopeThread extends Thread{
 	public void run(){
 		try {
         	while (true) {
-        		ArrayList<String> data = n.receive();
+        		ArrayList<String> data = n.receive();        		
         		if(!data.isEmpty()){
-            		String noArray = data.toString().replace('[', ' ');
-            		noArray = noArray.replace(']', ' ');
-            		System.out.println(noArray);        			
-            		display.setVoltage(noArray, null, null);
+        			System.out.println(data.get(0));
+        			System.out.println(data.get(0).split(",").length);
+            		display.setVoltage(data.get(0), null, null);
 
         		}
-//        		ArrayList<String> data = n.receive();
-//        		if(data.size() > 0){
-//	    			String string = "";
-//	        		for (int i = 0; i < data.size(); i++) {
-//	    				string = data.get(i).trim();
-//		        		double voltage = Double.parseDouble(string);
-//		                display.addVoltage(voltage);
-//	    			}
-//
-//        		}
 //        		display.setVoltage(SINE, COSINE, TANGENT);
 //                sleep(5);
         	}
