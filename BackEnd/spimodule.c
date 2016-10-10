@@ -419,21 +419,20 @@ int main(int argc, char const *argv[]) {
   char wbuff[3] = {(char)1,(char)128,(char)0};//the nuclear lauch codes... keep it on the low
   char rbuff[3]; //allocate 3 bytes
 
-  int op = 0;
-  op = sizeof(rbuff);
-  printf("buff =%d\n", op);
+  int op = sizeof(rbuff);
+  // printf("buff =%d\n", op);
 
   int count = 0;
   spi_realloc(&fsc, 12);
   while (count < 100) {
 
-    clock_t start = clock();
+    // clock_t start = clock();
 
     spi_write_read(&fsc,wbuff,3,rbuff,3,0);
 
-    clock_t end = clock();
-    float seconds = (float)(end-start)/CLOCKS_PER_SEC;
-    printf("time: %f\n", seconds);
+    // clock_t end = clock();
+    // float seconds = (float)(end-start)/CLOCKS_PER_SEC;
+    // printf("time: %f\n", seconds);
 
 
 
