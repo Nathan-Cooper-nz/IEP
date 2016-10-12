@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+reset
+gcc send.c -o sender
+./sender | python reader.py

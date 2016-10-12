@@ -6,11 +6,11 @@ int main () {
 
    char buf[3] = "";
    buf[0] = 0;
-   buf[1] = -17;
-   buf[2] = 'Z';
+   buf[1] = 129;
+   buf[2] = 1;
 
    for(i = 0; j < 10; i++ ) {
-      fprintf(stdout, "%d %d %d\n", buf[0], buf[1], buf[2] );
+      fprintf(stdout, "%c%c%c\n", buf[0], buf[1], buf[2] );
    }
 
    return 0;
