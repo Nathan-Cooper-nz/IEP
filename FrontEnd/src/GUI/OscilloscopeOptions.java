@@ -26,7 +26,7 @@ public class OscilloscopeOptions extends JTabbedPane {
 	private JPanel measure;
 	
     public OscilloscopeOptions(){    
-    	channel = new GUI.ChannelTab();
+    	channel = new ChannelTab();
     	trigger = new TriggerTab();
     	cursor = new CursorTab();
     	measure = new MeasureTab();
@@ -39,14 +39,5 @@ public class OscilloscopeOptions extends JTabbedPane {
     	Border border = LineBorder.createGrayLineBorder();
         setBorder(border);
     }
-    
-    /**
-     * This just makes it clearer that there should always be a specific
-     * type of coupling
-     * @author nztyler
-     *
-     */
-    public enum Coupling {
-    	AC, DC
-    }
+
 }

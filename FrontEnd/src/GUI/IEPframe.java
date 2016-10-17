@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import Oscilloscope.OscilloscopePanel;
 
+import Network.Network;
+
 public class IEPframe extends JFrame {
 
     private MeasureDisplay oscMeasure;
@@ -28,8 +30,11 @@ public class IEPframe extends JFrame {
         //Create the displays
         oscPanel = new OscilloscopePanel();
         oscOptions = new OscilloscopeOptions();
+
+        Network net = getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().getNetwork();
+
         oscMeasure = new MeasureDisplay();
-        fGenOptions = new FunctionOptions(getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().getNetwork());
+        fGenOptions = new FunctionOptions(net);
         //Add displays to the frame
         addComp(panel, oscPanel, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);

@@ -3,7 +3,6 @@ package Oscilloscope;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,6 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -41,11 +39,11 @@ public class Graph extends JPanel {
 	private XYSeries funcVoltages;
 
 	private OscilloscopePanel oscPanel;	//I may not even need this
-	private OscilloscopeThread oscThread;
+	private DisplayThread oscThread;
 
 	public Graph(OscilloscopePanel oscPanel){
 		this.oscPanel = oscPanel;
-		oscThread = new OscilloscopeThread(this);
+		oscThread = new DisplayThread(this);
 
 		ch1Voltages = new XYSeries("CH1");
 		ch2Voltages = new XYSeries("CH2");
@@ -102,7 +100,7 @@ public class Graph extends JPanel {
 		funcVoltages.add(0, 0);
 	}
 
-	public OscilloscopeThread getOscilloscopeThread(){
+	public DisplayThread getOscilloscopeThread(){
 		return oscThread;
 	}
 
