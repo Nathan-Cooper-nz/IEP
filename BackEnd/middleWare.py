@@ -1,6 +1,7 @@
 from server import *
 from functionGen import *
 from trigger import *
+from spi import *
 import math
 import time
 import queue
@@ -108,27 +109,27 @@ class MiddleWare:
             self.spi.funcGen.setValues(func, amp, freq, per)
             self.trigger.purge()
 
-class Spi:
-
-    def __init__(self,points):
-        self.points =points
-        self.pos = 30
-        #FunctionGen(Type, Amp, Freq, Peri)
-        self.funcGen = FunctionGen("sin", 1, 1, 1)
-
-    def read(self):
-        amp  = self.funcGen.amplitude
-        freq = self.funcGen.frequency
-        angle = self.pos * math.pi/180
-        voltage = math.sin(freq*angle) * (amp)
-
-        # voltage = math.sin(self.pos*2*math.pi/self.points) * (amp)
-        voltage = round(voltage, 3)
-        string = str(voltage)
-        self.pos = self.pos + 1
-        # if(self.pos==360):
-        #     self.pos = 0;
-        return string
+# class Spi:
+#
+#     def __init__(self,points):
+#         self.points =points
+#         self.pos = 30
+#         #FunctionGen(Type, Amp, Freq, Peri)
+#         self.funcGen = FunctionGen("sin", 1, 1, 1)
+#
+#     def read(self):
+#         amp  = self.funcGen.amplitude
+#         freq = self.funcGen.frequency
+#         angle = self.pos * math.pi/180
+#         voltage = math.sin(freq*angle) * (amp)
+#
+#         # voltage = math.sin(self.pos*2*math.pi/self.points) * (amp)
+#         voltage = round(voltage, 3)
+#         string = str(voltage)
+#         self.pos = self.pos + 1
+#         # if(self.pos==360):
+#         #     self.pos = 0;
+#         return string
 
 
 middleware = MiddleWare()
