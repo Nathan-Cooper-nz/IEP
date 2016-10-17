@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+reset
+gcc -lftdi spimodule.c -o spimodule
+./spimodule | python server.py

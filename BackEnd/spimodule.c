@@ -424,39 +424,33 @@ int main(int argc, char const *argv[]) {
 
   int count = 0;
   spi_realloc(&fsc, 12);
-  while (count < 100) {
-
-    // clock_t start = clock();
+  while (1) {
 
     spi_write_read(&fsc,wbuff,3,rbuff,3,0);
-
-    // clock_t end = clock();
-    // float seconds = (float)(end-start)/CLOCKS_PER_SEC;
-    // printf("time: %f\n", seconds);
+    fprintf(stdout, "%d %d %d\n", rbuff[0], rbuff[1], rbuff[2] );
 
 
-
-    ////FOLLOWING CODE JUST PRINTS WHAT IS IN THE  RBUFF/////
-    printf("rubuff size: %d\n",sizeof(rbuff));
-    int *num = (int *)rbuff;
-
-    int BUFF_SIZE = 25; //65 Because of null terminator, remmebr, if you change it here...
-                        //CHANGE IT IN int2bin...UPDATE: i changed it to 25 caus now rBuf is only 24bit
-                        //no idea why it changed
-
-    char buffer[BUFF_SIZE];
-    buffer[BUFF_SIZE - 1] = '\0';
-
-    int2bin(*num, buffer, BUFF_SIZE - 1);
-
-
-
-    printf("a = %s \n", buffer);
-    //sleep(0.001);
-    //unsigned int retTime = time(0) + 1;   // Get finishing time.
-    //while (time(0) < retTime); //also its a nice delay
-
-    count++;
+    // ////FOLLOWING CODE JUST PRINTS WHAT IS IN THE  RBUFF/////
+    // printf("rubuff size: %d\n",sizeof(rbuff));
+    // int *num = (int *)rbuff;
+    //
+    // int BUFF_SIZE = 25; //65 Because of null terminator, remmebr, if you change it here...
+    //                     //CHANGE IT IN int2bin...UPDATE: i changed it to 25 caus now rBuf is only 24bit
+    //                     //no idea why it changed
+    //
+    // char buffer[BUFF_SIZE];
+    // buffer[BUFF_SIZE - 1] = '\0';
+    //
+    // int2bin(*num, buffer, BUFF_SIZE - 1);
+    //
+    //
+    //
+    // printf("a = %s \n", buffer);
+    // //sleep(0.001);
+    // //unsigned int retTime = time(0) + 1;   // Get finishing time.
+    // //while (time(0) < retTime); //also its a nice delay
+    //
+    // count++;
 
   }
 
