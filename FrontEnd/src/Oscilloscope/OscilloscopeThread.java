@@ -14,7 +14,7 @@ import Network.Network;
  */
 public class OscilloscopeThread extends Thread{
 
-	private GraphDisplay display;
+	private Graph display;
 	private Network n;
 	
 	
@@ -33,7 +33,7 @@ public class OscilloscopeThread extends Thread{
 			+ "-1.7005,1.7005,5.8123,13.8564,76.1149,-24.6215,-8.8849,-3.5618,0.0,3.5618,8.8849,24.6215,-76.1149,"
 			+ "-13.8564,-5.8123,-1.7005,1.7005,5.8123";
 
-	public OscilloscopeThread(GraphDisplay display){
+	public OscilloscopeThread(Graph display){
 		this.display = display;
 		this.n= new Network();
 	}
