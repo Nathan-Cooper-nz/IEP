@@ -2,12 +2,16 @@
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import GUI.FunctionOptions;
+import Network.Network;
 import Oscilloscope.OscilloscopeMeasure;
 import Oscilloscope.OscilloscopeOptions;
 import Oscilloscope.OscilloscopePanel;
@@ -21,8 +25,8 @@ public class IEPframe extends JFrame {
 
     public IEPframe(){
     	setTitle("Integrated Electronics Platform");
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+    	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+    	
         //Trying to figure out how to make the layout nicer
         JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
@@ -44,6 +48,21 @@ public class IEPframe extends JFrame {
         setSize(1200,700);
         //pack();
         setVisible(true);
+        
+        Network net = getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().getNetwork();
+    	WindowListener exitListener = new WindowAdapter() {
+
+    	    @Override
+    	    public void windowClosing(WindowEvent e) {
+    	    	net.send("GUI CLOSED");
+    	    	while(!net.allSent()){
+    	    		
+    	    	}
+    	    	System.exit(0);
+    	    }
+    	};
+    	this.addWindowListener(exitListener);
+
     }
     
     public OscilloscopePanel getOscilloscopePanel(){

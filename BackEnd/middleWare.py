@@ -6,11 +6,13 @@ import math
 import time
 import queue
 import threading
+import sys
 
 class MiddleWare:
 
     def __init__(self):
         self.points = 60
+        self.living = True
 
         self.server = Server()
         self.spi = Spi(self.points)
@@ -22,19 +24,26 @@ class MiddleWare:
 
         #Thread to handle reading from SPI then writing to Server
         spiThread = threading.Thread(target = self.spiRead)
+        spiThread.name = "SPI_Thread"
         spiThread.deamon = True    #Kill off on its own
         spiThread.start()
 
         #Thread to handle reading from Server then writing to SPI
         serverThread = threading.Thread(target = self.serverRead)
+        serverThread.name = "SERVER_Thread"
         serverThread.deamon = True
         serverThread.start()
+
+        print(threading.active_count())
+        for thrd in threading.enumerate():
+            if(thrd.isDaemon):
+                print(thrd)
 
     def spiRead(self):
         """ reads from the spi then proccess the data before passing on to server.py
 
         """
-        while(True):
+        while(self.living):
             if(not self.proccessQueue.empty()):
                 message = self.proccessQueue.get()
                 if(self.server.receiver_found):
@@ -94,7 +103,7 @@ class MiddleWare:
         #     self.oscWindow_1 = []
 
     def serverRead(self):
-        while(True):
+        while(self.living):
             userInput = self.server.recentMessage()
             if(userInput != "empty"):
                 self.parseUser(userInput)
@@ -108,6 +117,11 @@ class MiddleWare:
             per = splitText[4]
             self.spi.funcGen.setValues(func, amp, freq, per)
             self.trigger.purge()
+        elif(text == "GUI CLOSED"):
+            print("QUITTING TIME")
+            self.living = False
+            self.server.active = False
+
 
 # class Spi:
 #

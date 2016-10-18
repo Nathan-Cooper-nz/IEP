@@ -46,8 +46,7 @@ public class OscilloscopeThread extends Thread{
         		if(!data.isEmpty()){
         			System.out.println(data.get(0));
         			System.out.println(data.get(0).split(",").length);
-            		display.setVoltage(data.get(0), null, null);
-
+        			display.setVoltage(data.get(0), null, null);
         		}
 //        		ArrayList<String> data = n.receive();
 //        		if(data.size() > 0){
