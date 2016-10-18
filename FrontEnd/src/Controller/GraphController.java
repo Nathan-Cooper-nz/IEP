@@ -32,7 +32,6 @@ public class GraphController {
      * @param third
      */
     public void setVoltage(String first, String second, String third) {
-
         // clear the panel
         clear();
 

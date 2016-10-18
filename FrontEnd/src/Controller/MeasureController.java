@@ -26,6 +26,19 @@ public class MeasureController {
     }
 
     /**
+     * This is used to change the measurements for the tabs and
+     * the measure display
+     * @param value The amount that this is being changed to
+     * @param index The index that the value is replacing
+     */
+    public void alter(double value, int index) {
+        if (index < 0 || index >= 5)
+            throw new Error("Index out of bound");
+        dataValues[index] = value;
+        update();
+    }
+
+    /**
      * This should update both the measure panel and measure tab
      */
     public void update() {

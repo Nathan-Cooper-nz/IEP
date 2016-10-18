@@ -23,7 +23,6 @@ public class DisplayThread extends Thread{
 
 	public DisplayThread(GraphController graphController, MeasureController measureController, Network net) {
 		this.net = net;
-
 		this.graphController = graphController;
 		this.measureController = measureController;
 	}
@@ -33,9 +32,7 @@ public class DisplayThread extends Thread{
 		try {
         	while (true) {
         		ArrayList<String> data = net.receive();
-        		if(!data.isEmpty()){
-        			System.out.println(data.get(0));
-        			System.out.println(data.get(0).split(",").length);
+        		if(!data.isEmpty() && data.size() == 1){
             		graphController.setVoltage(data.get(0), null, null);
         		}
         	}
@@ -43,10 +40,4 @@ public class DisplayThread extends Thread{
             e.printStackTrace();
         }
 	}
-
-	public Network getNetwork() {
-		// TODO Auto-generated method stub
-		return net;
-	}
-
 }
