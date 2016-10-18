@@ -29,8 +29,8 @@ class Spi:
 
             # vals = list(cleanLine)
             vals = cleanLine.split()
-            print("\n\n")
-            print (vals)
+            # print("\n\n")
+            # print (vals)
 
             binVals = []
             for val in vals:

@@ -101,24 +101,24 @@ int spi_open(struct spi_context *fsc, struct ftdi_context *fc, int interface){
   /**Setting chunk size..
   Configure write buffer chunk size, Defult is 4096*/
   FTDI_CHECK(ftdi_write_data_set_chunksize(&fsc->fc,512),"SET CHUNK 512",fsc->fc);
-  printf("SET CHUNK 512\n");
+  // printf("SET CHUNK 512\n");
 
   //weird error in interface ATOM has a cry but compiler happy :)
   //opens selected Channel on chip :)
   FTDI_CHECK(ftdi_set_interface(&fsc->fc,interface), "SET INT", fsc->fc);
-  printf("INTERFACE SET: %d\n", interface);
+  // printf("INTERFACE SET: %d\n", interface);
 
   //RESETS THE DEVICE, OSCILLOSCOPE IN OUR CASE//
   FTDI_CHECK(ftdi_usb_reset(&fsc->fc),"RESET",fsc->fc);
-  printf("DEVICE RESET\n");
+  // printf("DEVICE RESET\n");
   //GOTS ME MUCH TRIGGERED!!!! 2ms!!! thats quite some time.
   //WE WILL KEEP THIS AT 2 for now. it stores USB data in internall buffer if
   //it is not full to decrease load on USB...hopefully no slowing down is occuring :)
   FTDI_CHECK(ftdi_set_latency_timer(&fsc->fc,2),"SET LAT 2ms", fsc->fc);
-  printf("USB LATENCY TIMER: 2ms\n");
+  // printf("USB LATENCY TIMER: 2ms\n");
   //I ACTUALLY HAVE NO CLUE WHAT THIS DOES...HOPEFULLY SOMETHING USEFUL
   FTDI_CHECK(ftdi_setflowctrl(&fsc->fc,SIO_RTS_CTS_HS),"RTS/CTS",fsc->fc);//
-  printf("FLOW CONTROL SET\n");
+  // printf("FLOW CONTROL SET\n");
   /**BBMODE WAS SET TO 2 UP THE TOP. However in its place there are a lot of
   other values that could be used. for other purposes. this works for SPI.
   second value(0) is Bitmask "to configure line. HIGH/ON value configures a
@@ -126,7 +126,7 @@ int spi_open(struct spi_context *fsc, struct ftdi_context *fc, int interface){
   yea... just keep this how it is not sure what its truely up to
   */
   FTDI_CHECK(ftdi_set_bitmode(&fsc->fc,0,BBMODE_SPI), "SET SPI MODE",fsc->fc);
-  printf("BITMODE: %d\n", BBMODE_SPI );
+  // printf("BITMODE: %d\n", BBMODE_SPI );
   /**SO after some searching i found out that these DO_READ etc... are hex commands
   yea... its that ECEN 301 stuff, fun times :)...I dont really want to go too deep
   into the micro so "I will just have to accept this, and move on." */
@@ -136,7 +136,7 @@ int spi_open(struct spi_context *fsc, struct ftdi_context *fc, int interface){
 
   //CLEARS usb buffers on chip and internally
   FTDI_CHECK(ftdi_usb_purge_buffers(&fsc->fc), "PURGE", fsc->fc);
-  printf("PURGED USB BUFFERS\n");
+  // printf("PURGED USB BUFFERS\n");
 
   return FTDISPI_ERROR_NONE;
 }
@@ -332,7 +332,7 @@ int spi_write_read(struct spi_context *fsc,
 
   //WELL... I DONT KNOW WHAT THIS DO
   //i = 0;
-  printf("bitbang = %u\n",fsc->fc.bitbang_mode);
+  // printf("bitbang = %u\n",fsc->fc.bitbang_mode);
 
 
 
@@ -395,7 +395,7 @@ int main(int argc, char const *argv[]) {
   //OPEN DEVICE
   i = ftdi_usb_open(&fc,0x0403,0x6014); //CONTEXT, VENDOR, PRODUCT
   if(i==0){
-    printf("USB OPEN: SUCESSFUL\n");
+    // printf("USB OPEN: SUCESSFUL\n");
   }
   if(i<0 && i != -5){
     fprintf(stderr, "OPEN: %s\n", ftdi_get_error_string(&fc) );
@@ -406,18 +406,18 @@ int main(int argc, char const *argv[]) {
   spi_open(&fsc, &fc, INTERFACE_A);
   //SET THE MODE
   spi_setmode(&fsc,1,0,0,0,0,0);
-  printf("SETMODE: SUCESSFUL\n");
+  // printf("SETMODE: SUCESSFUL\n");
 
   spi_setclock(&fsc,200000);
-  printf("SETCLOCK: SUCESSFUL\n");
+  // printf("SETCLOCK: SUCESSFUL\n");
 
   spi_setloopback(&fsc,0);
-  printf("SETLOOPBACK: SUCESSFUL\n");
+  // printf("SETLOOPBACK: SUCESSFUL\n");
 
 
   //NOW FOR THE BIGGIE!!! THE ONE FUNCTION TO RULE THEM ALL... THE ONE cAUSING SO MANY problems
   char wbuff[3] = {(char)1,(char)128,(char)0};//the nuclear lauch codes... keep it on the low
-  char rbuff[3]; //allocate 3 bytes
+  unsigned char rbuff[3]; //allocate 3 bytes
 
   int op = sizeof(rbuff);
   // printf("buff =%d\n", op);
@@ -427,6 +427,7 @@ int main(int argc, char const *argv[]) {
   while (1) {
 
     spi_write_read(&fsc,wbuff,3,rbuff,3,0);
+    // printf("num: %d\n",  (int *)rbuff); 
     fprintf(stdout, "%d %d %d\n", rbuff[0], rbuff[1], rbuff[2] );
 
 

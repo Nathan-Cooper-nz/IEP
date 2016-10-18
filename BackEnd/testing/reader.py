@@ -18,7 +18,7 @@ for line in sys.stdin:
     for val in vals:
         binVals.append((bin(int(val))[2:]).zfill(8)[::-1])
 
-    adjustedVal = (int(binVals[1] + binVals[2], 2) - 512)
+    adjustedVal = (int(binVals[1] + binVals[0], 2) - 512)
     if(adjustedVal < 0):
         voltage = ( 10000 / 512) * adjustedVal
     else:
@@ -30,5 +30,5 @@ for line in sys.stdin:
     for val in binVals:
         print(val, end=", ")
     print("\ncombined", end=": ")
-    print(str(int(binVals[0], 2)) + ", " + str(int(binVals[1] + binVals[2], 2)))
+    print(str(int(binVals[2], 2)) + ", " + str(int(binVals[1] + binVals[0], 2)))
     print(str(voltage) +"mv")
