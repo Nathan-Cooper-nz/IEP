@@ -1,22 +1,17 @@
-package Oscilloscope;
+package GUI;
+
+import Component.UpDown;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTextArea;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class ChannelTab extends JPanel{
 
@@ -94,7 +89,7 @@ public class ChannelTab extends JPanel{
         probePanel.add(lowProbe);
         probePanel.add(highProbe);
         
-        JPanel dPad = new DirectionPad();
+        JPanel dPad = new UpDown.DirectionPad();
         
     	JPanel right = new JPanel();   	
         right.setLayout(new GridBagLayout());

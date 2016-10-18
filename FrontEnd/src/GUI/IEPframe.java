@@ -1,4 +1,4 @@
-
+package GUI;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,17 +7,20 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import GUI.FunctionOptions;
-import Oscilloscope.OscilloscopeMeasure;
-import Oscilloscope.OscilloscopeOptions;
+import Controller.GraphController;
+import Oscilloscope.Graph;
 import Oscilloscope.OscilloscopePanel;
+
+import Network.Network;
 
 public class IEPframe extends JFrame {
 
-    private OscilloscopeMeasure oscMeasure;
+    private MeasureDisplay oscMeasure;
     private FunctionOptions fGenOptions;
     private OscilloscopePanel oscPanel;
     private OscilloscopeOptions oscOptions;
+
+    private Network network;
 
     public IEPframe(){
     	setTitle("Integrated Electronics Platform");
@@ -27,12 +30,18 @@ public class IEPframe extends JFrame {
         JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
-        
-        //Create the displays
+
+        // Create the network
+
+        network = new Network();
+
+        // Create the displays
         oscPanel = new OscilloscopePanel();
         oscOptions = new OscilloscopeOptions();
-        oscMeasure = new OscilloscopeMeasure();
-        fGenOptions = new FunctionOptions(getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().getNetwork());
+
+        oscMeasure = new MeasureDisplay();
+        fGenOptions = new FunctionOptions(network);
+
         //Add displays to the frame
         addComp(panel, oscPanel, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);
@@ -45,10 +54,16 @@ public class IEPframe extends JFrame {
         //pack();
         setVisible(true);
     }
-    
-    public OscilloscopePanel getOscilloscopePanel(){
-    	return oscPanel;
-    }
+
+    // These are the two getters needed for the the measure controller
+    public MeasureDisplay getMeasureDisplay() { return oscMeasure; }
+    public MeasureTab getMeasureTab() { return oscOptions.getMeasureTab(); }
+
+    // This is the getter needed for the graph controller
+    public Graph getGraph() { return oscPanel.getGraph(); }
+
+    // This is for getting the network for the thread
+    public Network getNetwork() { return network; }
     
     /**
      * This is a helper method which is only used by this class to add

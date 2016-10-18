@@ -1,9 +1,9 @@
-package Oscilloscope;
+package GUI;
 
-import java.awt.BorderLayout;
+import Component.UpDown;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicArrowButton;
 
 public class CursorTab extends JPanel{
 //./
@@ -52,7 +51,7 @@ public class CursorTab extends JPanel{
         panel.setLayout(layout);
     	
     	JLabel label = new JLabel(channel);
-    	JPanel dPad = new DirectionPad();
+    	JPanel dPad = new UpDown.DirectionPad();
     	
     	JPanel pad = new JPanel();
     	pad.setLayout(new GridBagLayout());

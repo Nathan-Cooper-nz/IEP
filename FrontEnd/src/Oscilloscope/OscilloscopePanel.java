@@ -1,30 +1,18 @@
 package Oscilloscope;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  * This is the upper half of the Oscilloscope JPanel
@@ -39,7 +27,7 @@ public class OscilloscopePanel extends JPanel {
 	private boolean channelOneOn = false;
 	private boolean channelTwoOn = false;
 	
-	private GraphDisplay display;
+	private Graph display;
 	
     public OscilloscopePanel(){
     	Border border = LineBorder.createGrayLineBorder();
@@ -47,7 +35,7 @@ public class OscilloscopePanel extends JPanel {
         setLayout(new GridBagLayout());
         
         //add the oscilloscope display and buttons
-        display = new GraphDisplay(this);
+        display = new Graph(this);
         JPanel sidePanel = new JPanel();
         sidePanel.setLayout(new GridBagLayout());
         
@@ -89,7 +77,7 @@ public class OscilloscopePanel extends JPanel {
     }
     
     //This is the only getter we need
-    public GraphDisplay getOscilloscopeDisplay(){
+    public Graph getGraph(){
     	return display;
     }
     

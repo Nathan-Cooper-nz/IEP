@@ -1,4 +1,4 @@
-package Oscilloscope;
+package GUI;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +15,8 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class MeasureTab extends JPanel{
+
+	private double[] dataValues;
 
 	public MeasureTab(){
 		setLayout(new GridBagLayout());
@@ -38,8 +40,7 @@ public class MeasureTab extends JPanel{
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				JComboBox<String> source = (JComboBox<String>) e.getSource();
-				JComboBox<String> things = source;
-				System.out.println("Shape: "+things.getSelectedItem());
+				System.out.println("Shape: "+source.getSelectedItem());
 			}
 		});
 		JTextArea text = new JTextArea();
@@ -54,7 +55,16 @@ public class MeasureTab extends JPanel{
 		panel.add(text);
 		return panel;
 	}
-	
+
+	public void update(double[] values) {
+		// check that there are the right number of values
+		if (values.length != 5) {
+			throw new Error("There should be 5 values!");
+		}
+
+		dataValues = values;
+	}
+
 	/**
      * This is a helper method which is only used by this class to add
      * components to a panel

@@ -1,4 +1,4 @@
-package Oscilloscope;
+package GUI;
 
 import java.awt.GridLayout;
 
