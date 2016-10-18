@@ -2,6 +2,8 @@ package Oscilloscope;
 
 import java.util.ArrayList;
 
+import Controller.GraphController;
+import Controller.MeasureController;
 import Network.Network;
 
 /**
@@ -14,12 +16,16 @@ import Network.Network;
  */
 public class DisplayThread extends Thread{
 
-	private Graph display;
 	private Network net;
 
-	public DisplayThread(Graph display){
-		this.display = display;
-		this.net= new Network();
+	private GraphController graphController;
+	private MeasureController measureController;
+
+	public DisplayThread(GraphController graphController, MeasureController measureController, Network net) {
+		this.net = net;
+
+		this.graphController = graphController;
+		this.measureController = measureController;
 	}
 
 	@Override
@@ -30,7 +36,7 @@ public class DisplayThread extends Thread{
         		if(!data.isEmpty()){
         			System.out.println(data.get(0));
         			System.out.println(data.get(0).split(",").length);
-            		display.setVoltage(data.get(0), null, null);
+            		graphController.setVoltage(data.get(0), null, null);
         		}
         	}
         } catch (Exception e) {

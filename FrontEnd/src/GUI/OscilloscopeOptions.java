@@ -20,10 +20,10 @@ import javax.swing.border.LineBorder;
  */
 public class OscilloscopeOptions extends JTabbedPane {
 	
-	private JPanel channel;
-	private JPanel trigger;
-	private JPanel cursor;
-	private JPanel measure;
+	private ChannelTab channel;
+	private TriggerTab trigger;
+	private CursorTab cursor;
+	private MeasureTab measure;
 	
     public OscilloscopeOptions(){    
     	channel = new ChannelTab();
@@ -40,4 +40,7 @@ public class OscilloscopeOptions extends JTabbedPane {
         setBorder(border);
     }
 
+    public MeasureTab getMeasureTab() {
+		return measure;
+	}
 }

@@ -77,7 +77,7 @@ public class OscilloscopePanel extends JPanel {
     }
     
     //This is the only getter we need
-    public Graph getOscilloscopeDisplay(){
+    public Graph getGraph(){
     	return display;
     }
     

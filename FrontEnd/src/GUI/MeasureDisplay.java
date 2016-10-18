@@ -21,6 +21,12 @@ public class MeasureDisplay extends JPanel{
 
 	private double[] dataValues;
 
+	private JLabel first;
+	private JLabel second;
+	private JLabel third;
+	private JLabel fourth;
+	private JLabel fifth;
+
 	public MeasureDisplay(){
 
 		add(new JLabel("Measure Panel"));
@@ -30,17 +36,17 @@ public class MeasureDisplay extends JPanel{
 		Border border = LineBorder.createGrayLineBorder();
 		setBorder(border);
 
-		JPanel first = getData("First");
-		JPanel second = getData("Second");
-		JPanel third = getData("Third");
-		JPanel fourth = getData("Fourth");
-		JPanel fifth = getData("Fifth");
+		first = new JLabel("1");
+		second = new JLabel("2");
+		third = new JLabel("3");
+		fourth = new JLabel("4");
+		fifth = new JLabel("5");
 
-		add(first);
-		add(second);
-		add(third);
-		add(fourth);
-		add(fifth);
+		add(getData("First: ", first));
+		add(getData("Second: ", second));
+		add(getData("Third: ", third));
+		add(getData("Fourth: ", fourth));
+		add(getData("Fifth: ", fifth));
 	}
 
 	public void update(double[] values) {
@@ -50,14 +56,24 @@ public class MeasureDisplay extends JPanel{
 		}
 
 		dataValues = values;
+		first.setText(Double.toString(values[0]));
+		second.setText(Double.toString(values[1]));
+		third.setText(Double.toString(values[2]));
+		fourth.setText(Double.toString(values[3]));
+		fifth.setText(Double.toString(values[4]));
 	}
 
-	public JPanel getData(String name){
+	public JPanel getData(String name, JLabel text){
 		JPanel panel = new JPanel();
+
 		Border border = LineBorder.createGrayLineBorder();
 		panel.setBorder(border);
-		JLabel label = new JLabel(name);
-		panel.add(label);
+
+		JLabel title = new JLabel(name);
+		text.setFont(text.getFont().deriveFont(18f));
+
+		panel.add(title);
+		panel.add(text);
 		return panel;
 	}
 }

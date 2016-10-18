@@ -1,6 +1,9 @@
 package Main;
 
+import Controller.GraphController;
+import Controller.MeasureController;
 import GUI.IEPframe;
+import Oscilloscope.DisplayThread;
 
 import java.awt.EventQueue;
 
@@ -18,10 +21,15 @@ public class Main {
             	    e.printStackTrace();
             	}
             	
-            	GUI.IEPframe frame = new IEPframe();
-            	
+            	IEPframe frame = new IEPframe();
+
+                //make the controllers
+                GraphController graph = new GraphController(frame.getGraph());
+                MeasureController measure = new MeasureController(frame.getMeasureDisplay(), frame.getMeasureTab());
+
             	//start the oscilloscope thread
-            	frame.getOscilloscopePanel().getOscilloscopeDisplay().getOscilloscopeThread().start();
+                DisplayThread thread = new DisplayThread(graph, measure, frame.getNetwork());
+            	thread.start();
             }
         });
     }

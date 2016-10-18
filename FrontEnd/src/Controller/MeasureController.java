@@ -13,7 +13,7 @@ public class MeasureController {
     private MeasureDisplay display;
     private MeasureTab tab;
 
-    private MeasureController(MeasureDisplay display, MeasureTab tab) {
+    public MeasureController(MeasureDisplay display, MeasureTab tab) {
         this.display = display;
         this.tab = tab;
 
