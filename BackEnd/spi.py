@@ -41,7 +41,7 @@ class Spi:
                 voltage = ( 10000 / 512) * adjustedVal
             else:
                 voltage = ( 10000 / 511) * adjustedVal
-            dataQueue.put(voltage)
+            self.dataQueue.put(voltage)
 
     def read(self):
         if(not self.dataQueue.empty()):
