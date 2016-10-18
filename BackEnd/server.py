@@ -1,10 +1,12 @@
 from socket import *
 import threading
 import queue
+import subprocess
 
-class Server(threading.Thread):
+class Server:
 
     def __init__(self):
+        self.active = True
         self.host = "localhost"
         self.port = 5843
         self.queueSize = 20
@@ -23,41 +25,55 @@ class Server(threading.Thread):
 
 
         #Begin Listening Thread
-        readThread = threading.Thread(target = self.read)
-        readThread.deamon = True    #Kill off on its own
-        readThread.start()
+        self.readThread = threading.Thread(target = self.read)
+        self.readThread.name = "ServerRead"
+        self.readThread.deamon = True    #Kill off on its own
+        self.readThread.start()
+
+
+        #Start up the java front end
+        self.javaThread = threading.Thread(target = self.runJava)
+        self.javaThread.name = "JAVA_THREAD"
+        self.javaThread.deamon = True
+        self.javaThread.start()
+
+
+        #Wait until we have someone to write to
+        while(not self.receiver_found):
+            x = 0
+        self.writeThread = threading.Thread(target = self.write)
+        self.writeThread.name = "ServerWrite"
+        self.writeThread.deamon = True   #Kill off on its own
+        self.writeThread.start()
 
 
     def read(self):
-        while True:
-            data, client = self.socket.recvfrom(256)
-            if(not self.receiver_found):
-                print ("Client Port",client[1])
-                print ("Data", data.decode())
-                print ("Typeof data", type(data.decode()))
-                if(data.decode().isdigit()):
-                    self.client = (client[0],int(data.decode()))
-                    print("Connected")
-                    #self.addToSend("Connected")
-                    self.receiver_found = True
-
-                    #Start Write Thread now that client is found
-                    writeThread = threading.Thread(target = self.write)
-                    writeThread.deamon = True   #Kill off on its own
-                    writeThread.start()
-            else:
-                #Do something if clientMSG has a value
-                if data:
-                    print("Received: ", data.decode)
-                    self.recQueue.put(data.decode())
-
-
+        while (self.active):
+            if(self.socket!=None):
+                data, client = self.socket.recvfrom(256)
+                if(not self.receiver_found):
+                    print ("Client Port",client[1])
+                    print ("Data", data.decode())
+                    print ("Typeof data", type(data.decode()))
+                    if(data.decode().isdigit()):
+                        self.client = (client[0],int(data.decode()))
+                        print("Connected")
+                        #self.addToSend("Connected")
+                        self.receiver_found = True
+                else:
+                    #Do something if clientMSG has a value
+                    if(data.decode() == "GUI CLOSED"):
+                        #Stops this thread from stopping work
+                        self.socket = None
+                    if data:
+                        print("Received: ", data.decode)
+                        self.recQueue.put(data.decode())
     '''
     Writes to a particular socket
     '''
     def write(self):
         position = 0
-        while True:
+        while self.active:
             if(not self.sendQueue.empty()):
                 message = self.sendQueue.get()
                 encoded_msg = message.encode()
@@ -78,6 +94,10 @@ class Server(threading.Thread):
             return self.recQueue.get()
         else:
             return "empty"
+
+
+    def runJava(self):
+        subprocess.call(['java', '-jar', 'front.jar'])
 
 # py_server = Server()
 # position = 0

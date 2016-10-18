@@ -51,5 +51,8 @@ public class Network {
 	public ArrayList<String> receive(){
 		return listener.poll();
 	}
-
+	
+	public boolean allSent(){
+		return this.sender.buffer.isEmpty();
+	}
 }
