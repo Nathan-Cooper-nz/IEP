@@ -83,7 +83,7 @@ public class Graph extends JPanel {
         range.setRange(-10, 10);
         range.setTickUnit(new NumberTickUnit(1.0));
 
-        ChartPanel chartPanel = new ChartPanel(chart);
+        ChartPanel chartPanel = new ChartPanel(chart, false, true, false, true, false);
         chartPanel.setPreferredSize(new Dimension(800, 400));
         add(chartPanel);
         validate();
