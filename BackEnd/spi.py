@@ -12,7 +12,7 @@ class Spi:
         self.pos = 30
         #FunctionGen(Type, Amp, Freq, Peri)
         self.funcGen = FunctionGen("sin", 1, 1, 1)
-        self.dataQueue = queue.Queue(20)
+        self.dataQueue = queue.Queue(2000)
 
 
         hardwareThread = threading.Thread(target = self.hardwareRead)

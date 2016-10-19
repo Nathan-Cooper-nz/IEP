@@ -52,14 +52,15 @@ class MiddleWare:
 
             else:
                 data = self.spi.read()
-                if count % 10 == 0:
-                    print(data)
-                count += 1
+                # if count % 10 == 0:
+                #     print(data)
+                # count += 1
                 if(str(data) != "empty"):
                     self.proccess(str(data))
                 hz = 40000
                 time.sleep(1/hz)
                 # time.sleep(.25)
+            # print(self.spi.dataQueue.qsize())
 
 
     def proccess(self, data):
