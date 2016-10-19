@@ -32,10 +32,10 @@ class Server:
 
 
         #Start up the java front end
-        self.javaThread = threading.Thread(target = self.runJava)
-        self.javaThread.name = "JAVA_THREAD"
-        self.javaThread.deamon = True
-        self.javaThread.start()
+        # self.javaThread = threading.Thread(target = self.runJava)
+        # self.javaThread.name = "JAVA_THREAD"
+        # self.javaThread.deamon = True
+        # self.javaThread.start()
 
 
         #Wait until we have someone to write to

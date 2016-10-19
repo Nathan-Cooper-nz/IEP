@@ -36,12 +36,12 @@ class Spi:
             for val in vals:
                 binVals.append((bin(int(val))[2:]).zfill(8)[::-1])
 
-            adjustedVal = (int(binVals[1] + binVals[2], 2) - 512)
+            adjustedVal = (int(binVals[1] + binVals[0], 2) - 512)
             if(adjustedVal < 0):
                 voltage = ( 10000 / 512) * adjustedVal
             else:
                 voltage = ( 10000 / 511) * adjustedVal
-            self.dataQueue.put(voltage)
+            self.dataQueue.put(voltage/1000.0)
 
     def read(self):
         if(not self.dataQueue.empty()):

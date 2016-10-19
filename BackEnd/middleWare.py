@@ -20,7 +20,7 @@ class MiddleWare:
         self.proccessQueue = queue.Queue(self.queueSize)
         self.oscWindow_1 = []
 
-        self.trigger = Trigger(1,2)
+        self.trigger = Trigger(1,-5)
 
         #Thread to handle reading from SPI then writing to Server
         spiThread = threading.Thread(target = self.spiRead)
@@ -43,6 +43,7 @@ class MiddleWare:
         """ reads from the spi then proccess the data before passing on to server.py
 
         """
+        count = 0;
         while(self.living):
             if(not self.proccessQueue.empty()):
                 message = self.proccessQueue.get()
@@ -51,7 +52,11 @@ class MiddleWare:
 
             else:
                 data = self.spi.read()
-                self.proccess(str(data))
+                if count % 10 == 0:
+                    print(data)
+                count += 1
+                if(str(data) != "empty"):
+                    self.proccess(str(data))
                 hz = 40000
                 time.sleep(1/hz)
                 # time.sleep(.25)

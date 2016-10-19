@@ -427,8 +427,9 @@ int main(int argc, char const *argv[]) {
   while (1) {
 
     spi_write_read(&fsc,wbuff,3,rbuff,3,0);
-    // printf("num: %d\n",  (int *)rbuff); 
+    // printf("num: %d\n",  (int *)rbuff);
     fprintf(stdout, "%d %d %d\n", rbuff[0], rbuff[1], rbuff[2] );
+    sleep(0.01);
 
 
     // ////FOLLOWING CODE JUST PRINTS WHAT IS IN THE  RBUFF/////

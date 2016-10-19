@@ -59,7 +59,8 @@ class Trigger:
                     self.readyToSend = True
 
                     # print(self.window)
-
+            # if(len(self.Window) > 30):
+            #     self.readyToSend = True
         # elif(len(self.window)>0):
         #     print("HI")
         #     self.readyToSend = True
