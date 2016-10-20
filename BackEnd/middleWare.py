@@ -39,6 +39,13 @@ class MiddleWare:
             if(thrd.isDaemon):
                 print(thrd)
 
+        while(self.living):
+            x= 0
+        print(threading.active_count())
+        for thrd in threading.enumerate():
+            if(thrd.isDaemon):
+                print(thrd)
+
     def spiRead(self):
         """ reads from the spi then proccess the data before passing on to server.py
 
@@ -69,7 +76,6 @@ class MiddleWare:
                 The data to be proccessed
         """
         proccessedData = float(data)
-        # print(proccessedData)
         if(self.proccessQueue.full()):
             self.proccessQueue.get()
 
@@ -84,29 +90,16 @@ class MiddleWare:
                 i = i + 1
 
             window = ', '.join(tmp)
-            print(len(tmp))
+            print("Data Points: "+str(len(tmp)))
+
             self.proccessQueue.put(window)
 
-        if(float(proccessedData) >= self.trigger.level and not self.trigger.record):
-            # print("HERE")
+        if(proccessedData >= self.trigger.level and not self.trigger.record):
             self.trigger.beginWindow(float(proccessedData))
-        # if(self.trigger.level>= 0  and self.trigger.level >=proccessedData):
-        #     self.trigger.beginWindow(proccessedData)
-        # elif(self.trigger.level< 0  and self.trigger.level <proccessedData):
-        #     self.trigger.beginWindow(proccessedData)
 
         if(self.trigger.record):
             self.trigger.addToWindow(proccessedData)
 
-            # self.trigger = []
-
-        # if(len(self.oscWindow_1) < self.points-1):
-        #     self.oscWindow_1.append(str(proccessedData))
-        # else:
-        #     tmp = list(self.oscWindow_1)
-        #     window = ', '.join(tmp)
-        #     self.proccessQueue.put(window)
-        #     self.oscWindow_1 = []
 
     def serverRead(self):
         while(self.living):
@@ -127,6 +120,7 @@ class MiddleWare:
             print("QUITTING TIME")
             self.living = False
             self.server.active = False
+            self.spi.stop = True
 
 
 # class Spi:

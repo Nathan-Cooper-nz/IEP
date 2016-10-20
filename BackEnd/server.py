@@ -65,6 +65,7 @@ class Server:
                     if(data.decode() == "GUI CLOSED"):
                         #Stops this thread from stopping work
                         self.socket = None
+                        self.active = False
                     if data:
                         print("Received: ", data.decode)
                         self.recQueue.put(data.decode())
