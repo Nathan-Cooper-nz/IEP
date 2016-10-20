@@ -7,9 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Controller.GraphController;
 import Oscilloscope.Graph;
-import Oscilloscope.OscilloscopePanel;
 
 import Network.Network;
 
@@ -17,7 +15,7 @@ public class IEPframe extends JFrame {
 
     private MeasureDisplay oscMeasure;
     private FunctionOptions fGenOptions;
-    private OscilloscopePanel oscPanel;
+    private Graph graph;
     private OscilloscopeOptions oscOptions;
 
     private Network network;
@@ -36,14 +34,14 @@ public class IEPframe extends JFrame {
         network = new Network();
 
         // Create the displays
-        oscPanel = new OscilloscopePanel();
+        graph = new Graph(this);
         oscOptions = new OscilloscopeOptions();
 
         oscMeasure = new MeasureDisplay();
         fGenOptions = new FunctionOptions(network);
 
         //Add displays to the frame
-        addComp(panel, oscPanel, 0, 0, 1, 1, 0.65, 0.7);
+        addComp(panel, graph, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);
         addComp(panel, oscMeasure, 1, 0, 1, 1, 0.35, 0.3);
         addComp(panel, fGenOptions, 1, 1, 1, 1, 0.35, 0.7);
@@ -60,7 +58,7 @@ public class IEPframe extends JFrame {
     public MeasureTab getMeasureTab() { return oscOptions.getMeasureTab(); }
 
     // This is the getter needed for the graph controller
-    public Graph getGraph() { return oscPanel.getGraph(); }
+    public Graph getGraph() { return graph; }
 
     // This is for getting the network for the thread
     public Network getNetwork() { return network; }

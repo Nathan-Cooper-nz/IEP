@@ -49,6 +49,10 @@ public class MeasureDisplay extends JPanel{
 		add(getData("Fifth: ", fifth));
 	}
 
+	/**
+	 * Update all of the values that are being displayed on the frame
+	 * @param values
+	 */
 	public void update(double[] values) {
 		// check that there are the right number of values
 		if (values.length != 5) {
@@ -63,6 +67,12 @@ public class MeasureDisplay extends JPanel{
 		fifth.setText(Double.toString(values[4]));
 	}
 
+	/**
+	 * Initialise the boxes that display the measurement values
+	 * @param name The name of the channel and what is being measured
+	 * @param text The value
+	 * @return A JPanel containing all necessary components
+	 */
 	public JPanel getData(String name, JLabel text){
 		JPanel panel = new JPanel();
 

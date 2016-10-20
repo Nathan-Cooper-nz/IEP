@@ -27,6 +27,11 @@ public class MeasureTab extends JPanel{
 		addComp(this, getSubMeasurePanel(), 4, 0, 1 , 1, 0.2, 1);
 	}
 
+	/**
+	 * Create a panel which holds all necessary information about what
+	 * is being measured for its specific channel
+	 * @return A JPanel containing all necessary components
+	 */
 	public JPanel getSubMeasurePanel(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -56,6 +61,10 @@ public class MeasureTab extends JPanel{
 		return panel;
 	}
 
+	/**
+	 * Update the measured values being stored and dislpayed
+	 * @param values
+	 */
 	public void update(double[] values) {
 		// check that there are the right number of values
 		if (values.length != 5) {

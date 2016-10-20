@@ -40,6 +40,7 @@ public class OscilloscopeOptions extends JTabbedPane {
         setBorder(border);
     }
 
+    // Getter so the measure controller can be linked to this tab
     public MeasureTab getMeasureTab() {
 		return measure;
 	}

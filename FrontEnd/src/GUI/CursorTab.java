@@ -44,8 +44,15 @@ public class CursorTab extends JPanel{
     	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
     }
-    
-    public JPanel getSubCurserPanel(String channel, boolean isLeft){
+
+	/**
+	 * There should be a cursor tab for channel 1 and 2 and this is the
+	 * helper method to return these JPanels
+	 * @param channel The title to be displayed at the top of the panel
+	 * @param isLeft Determine if the panel goes on the left or right
+	 * @return A JPanel containing all necessary components
+	 */
+	public JPanel getSubCurserPanel(String channel, boolean isLeft){
     	JPanel panel = new JPanel();
     	GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);

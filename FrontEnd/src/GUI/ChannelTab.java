@@ -22,17 +22,19 @@ public class ChannelTab extends JPanel{
     	GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
     	
-    	JPanel left = getSubVoltagePanel("Channel 1", true);
-    	JPanel right = getSubVoltagePanel("Channel 2", false);
+    	JPanel left = getSubVoltagePanel("Channel 1");
+    	JPanel right = getSubVoltagePanel("Channel 2");
         
     	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
     }
-    
-    /*
-     * sub method to get the voltages for each channel
-     */
-    public JPanel getSubVoltagePanel(String name, boolean isLeft){
+
+	/**
+	 * Method to get a panel containing all buttons needed for one of the channels
+	 * @param name A text to be displayed at the top of the panel
+	 * @return A panel containing all necessary components for each channel
+	 */
+	public JPanel getSubVoltagePanel(String name) {
     	JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);

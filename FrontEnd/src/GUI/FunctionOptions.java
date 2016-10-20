@@ -39,6 +39,11 @@ public class FunctionOptions extends JPanel {
 		this.net = net;
 	}
 
+	/**
+	 * Create all of the buttons that are displayed to do with choosing
+	 * the type of wave to be displayed
+	 * @return A JPanel containing all necessary components
+	 */
 	public JPanel getButtons(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -87,6 +92,11 @@ public class FunctionOptions extends JPanel {
 		return panel;
 	}
 
+	/**
+	 * Create a JPanel for all of the up-down buttons and text fields that
+	 * the user uses to change the values for frequency, amplitude and period
+	 * @return A JPanel containing all necessary components
+	 */
 	public JPanel spinnerPanel(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3,0));
@@ -159,6 +169,9 @@ public class FunctionOptions extends JPanel {
 		});
 	}
 
+	/**
+	 * Sends the values for the function generator to the back end
+	 */
 	private void sendUpdate(){
 		StringBuilder string = new StringBuilder();
 		string.append("fcnGen,");

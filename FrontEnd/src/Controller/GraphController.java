@@ -21,6 +21,9 @@ public class GraphController {
         this.graph = graph;
     }
 
+    /**
+     * Clears the voltages that are currently being displayed
+     */
     public void clear() {
         graph.resetVoltages();
     }
@@ -63,6 +66,12 @@ public class GraphController {
         }
     }
 
+    /**
+     * The parser method that assigns a single channel/function generator
+     * its voltages and spreads its values across the graph
+     * @param values The collection storing the voltage, time pairs
+     * @param text The entire string to be parsed
+     */
     public void parse(XYSeries values, String text) {
         List<String> strValues = Arrays.asList(text.split(","));
         for (int index = 0; index < strValues.size(); index ++) {

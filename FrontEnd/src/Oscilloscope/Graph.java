@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import GUI.IEPframe;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -38,12 +39,12 @@ public class Graph extends JPanel {
 	private XYSeries ch2Voltages;
 	private XYSeries funcVoltages;
 
-	private OscilloscopePanel oscPanel;	//I may not even need this
+	private IEPframe frame;
 	private DisplayThread oscThread;
 
-	public Graph(OscilloscopePanel oscPanel){
-		this.oscPanel = oscPanel;
+	public Graph(IEPframe frame){
 
+		this.frame = frame;
 		ch1Voltages = new XYSeries("CH1");
 		ch2Voltages = new XYSeries("CH2");
 		funcVoltages = new XYSeries("Func");
@@ -68,7 +69,7 @@ public class Graph extends JPanel {
 
         XYPlot plot = (XYPlot)chart.getPlot();
        // plot.setBackgroundPaint(Color.WHITE);
-        chart.setBackgroundPaint(oscPanel.getBackground());
+        chart.setBackgroundPaint(frame.getBackground());
         plot.setBackgroundPaint(Color.white);
         plot.setRangeGridlinePaint(Color.black);
         plot.setDomainGridlinePaint(Color.black);
@@ -90,24 +91,30 @@ public class Graph extends JPanel {
         validate();
 	}
 
+	/**
+	 * Resets all of the voltages for all of the channels
+	 */
 	public void resetVoltages(){
 		clear(ch1Voltages);
 		clear(ch2Voltages);
 		clear(funcVoltages);
 	}
 
+	/**
+	 * Clears a single set of voltages so the other XYSeries are intact
+	 * @param val The set to be cleared
+	 */
 	public void clear(XYSeries val) {
 		val.clear();
 	}
 
+	// Getters to help update or clear the collections
 	public XYSeries channelOne() {
 		return ch1Voltages;
 	}
-
 	public XYSeries channelTwo() {
 		return ch2Voltages;
 	}
-
 	public XYSeries functionGenerator() {
 		return funcVoltages;
 	}
