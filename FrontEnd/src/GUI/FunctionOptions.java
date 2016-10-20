@@ -8,13 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import Network.Network;
 
@@ -22,10 +16,14 @@ import Component.UpDown;
 
 public class FunctionOptions extends JPanel {
 
-	public int frequency;
-	public int amplitude;
-	public int period;
-	public String type = "sine";
+	private static final int FREQUENCY_INDEX = 0;
+	private static final int AMPLITUDE_INDEX = 1;
+	private static final int PERIOD_INDEX = 2;
+
+	private int frequency;
+	private int amplitude;
+	private int period;
+	private String type;
 	
 	private Network net;
 
@@ -33,6 +31,11 @@ public class FunctionOptions extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
 		setLayout(new GridBagLayout());
 		add(getButtons(), gbc);
+
+		frequency = 1;
+		amplitude = 1;
+		period = 1;
+		type = "sine";
 		this.net = net;
 	}
 
@@ -83,103 +86,77 @@ public class FunctionOptions extends JPanel {
 		//panel.add(upDownPanel());	
 		return panel;
 	}
-	
+
 	public JPanel spinnerPanel(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3,0));
-		
+
+		// Frequency
 		JLabel f = new JLabel("Frequency: ");
 		JTextField fr = new JTextField("1");
 		frequency = Integer.parseInt(fr.getText());
 		UpDown fud = new UpDown();
-		fud.up.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int t = Integer.parseInt(fr.getText());
-				t++;
-				fr.setText(t + "");
-				frequency = t;
-				sendUpdate();
-			}
-		});
-		fud.down.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int t = Integer.parseInt(fr.getText());
-				t = t-1;
-				fr.setText(t + "");
-				frequency = t;
-				sendUpdate();
-			}
-		});
+
+		setActionListener(fud.getUp(), fr, 1, FREQUENCY_INDEX);
+		setActionListener(fud.getDown(), fr, -1, FREQUENCY_INDEX);
 		
 		panel.add(f);
 		panel.add(fr);
 		panel.add(fud.getUD());
 		panel.add(Box.createRigidArea(new Dimension(0,10)));	
-		
+
+		// Amplitude
 		JLabel a = new JLabel("Amplitude: ");
 		JTextField am = new JTextField("1");
 		amplitude = Integer.parseInt(am.getText());
 		UpDown aud = new UpDown();
-		
-		aud.up.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int t = Integer.parseInt(am.getText());
-				t++;
-				am.setText(t + "");
-				amplitude = t;
-				sendUpdate();
-			}
-		});
-		aud.down.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int t = Integer.parseInt(am.getText());
-				t = t-1;
-				am.setText(t + "");
-				amplitude = t;
-				sendUpdate();
-			}
-		});
+
+		setActionListener(aud.getUp(), am, 1, AMPLITUDE_INDEX);
+		setActionListener(aud.getDown(), am, -1, AMPLITUDE_INDEX);
 		
 		panel.add(a);
 		panel.add(am);
 		panel.add(aud.getUD());
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
-		
+
+		// Period
 		JLabel p = new JLabel("Period: ");
 		JTextField pe = new JTextField("1");
 		period = Integer.parseInt(pe.getText());
 		UpDown pud = new UpDown();
-		
-		pud.up.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int t = Integer.parseInt(pe.getText());
-				t++;
-				pe.setText(t + "");
-				period = t;
-				sendUpdate();
-			}
-		});
-		pud.down.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int t = Integer.parseInt(pe.getText());
-				t = t-1;
-				pe.setText(t + "");
-				period = t;
-				sendUpdate();
-			}
-		});
+
+		setActionListener(pud.getUp(), pe, 1, PERIOD_INDEX);
+		setActionListener(pud.getDown(), pe, -1, PERIOD_INDEX);
 		
 		panel.add(p);
 		panel.add(pe);
 		panel.add(pud.getUD());
 		
 		return panel;
+	}
+
+	/**
+	 * A method to add the action listeners to the buttons
+	 * @param button The button that the action listener is being added to
+	 * @param text The value displayed in the text box
+	 * @param change Either positive or negative 1 to represent change
+	 * @param field 0 = Frequency, 1 = Amplitude, 2 = Period
+	 */
+	public void setActionListener(JButton button, JTextField text, int change, int field) {
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int t = Integer.parseInt(text.getText());
+				t += change;
+				text.setText(Integer.toString(t));
+				switch(field) {
+					case FREQUENCY_INDEX: frequency = t; break;
+					case AMPLITUDE_INDEX: amplitude = t; break;
+					case PERIOD_INDEX: period = t; break;
+				}
+				sendUpdate();
+			}
+		});
 	}
 
 	private void sendUpdate(){

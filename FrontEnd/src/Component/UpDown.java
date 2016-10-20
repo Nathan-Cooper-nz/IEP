@@ -7,14 +7,22 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 public class UpDown {
 	
-	public JButton up;
-    public JButton down;
+	private JButton up;
+    private JButton down;
 	
 	public UpDown(){
 		up = new BasicArrowButton(BasicArrowButton.NORTH);
 		down = new BasicArrowButton(BasicArrowButton.SOUTH);		
 	}
-	
+
+	public JButton getUp() {
+        return up;
+    }
+
+    public JButton getDown() {
+        return down;
+    }
+
 	public JPanel getUD(){
 		JPanel upDown = new JPanel();
 		upDown.setLayout(new GridLayout(2,1));
