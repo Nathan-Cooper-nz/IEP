@@ -16,12 +16,11 @@ class Trigger:
         self.old_min = 1000000
         self.old_max = -1000000
 
-        self.dev = 0.5
 
         if(self.snapShot):
             #Used for snapshotWindow
             self.recordTime = 1
-            self.delay = 2
+            self.delay = 0
             self.delayStart = 0
             self.startTime = 0
         else:
@@ -36,10 +35,11 @@ class Trigger:
             if(time.time()-self.delayStart >= self.delay or self.delayStart==0):
                 self.window.append(data)
                 self.record = True
-                print("Start Record")
+                # print("Start Record")
 
 
     def addToWindow(self, data):
+        start = time.time()
         if(self.record):
             self.window.append(data)
             self.min = min(self.min, data)
@@ -55,7 +55,10 @@ class Trigger:
             self.old_min = self.min
             self.old_max = self.max
             self.delayStart = time.time()
-            print("Window Done")
+            # print("Window Done")
+        end = time.time()
+
+        # print("Time to complete: " + str(end-start))
 
 
     def wavelenWindow(self, data):
@@ -141,10 +144,13 @@ class Trigger:
             self.watch = []
 
     def sigChange(self):
+
+        dev = 0.01
+
         minDiff = abs(self.min - self.old_min)
         maxDiff = abs(self.max - self.old_max)
 
-        if(minDiff <= self.dev or maxDiff <= self.dev):
+        if(minDiff <= dev or maxDiff <= dev):
             self.readyToSend = False
 
 
