@@ -23,9 +23,6 @@ import javax.swing.border.LineBorder;
  *
  */
 public class OscilloscopePanel extends JPanel {
-
-	private boolean channelOneOn = false;
-	private boolean channelTwoOn = false;
 	
 	private Graph display;
 	
@@ -51,8 +48,6 @@ public class OscilloscopePanel extends JPanel {
         	public void actionPerformed(ActionEvent e){
         		System.out.println("Save button pressed");
         		System.out.println("width: " + display.getWidth() + "\nheight: " + display.getHeight());
-        		channelOneOn = false;
-        		channelTwoOn = false;
         	}
         });
         

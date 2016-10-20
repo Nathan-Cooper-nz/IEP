@@ -83,6 +83,7 @@ public class Graph extends JPanel {
         range.setRange(-10, 10);
         range.setTickUnit(new NumberTickUnit(1.0));
 
+		// ChartPanel(JFreeChart chart, boolean properties, boolean save, boolean print, boolean zoom, boolean tooltips)
         ChartPanel chartPanel = new ChartPanel(chart, false, true, false, true, false);
         chartPanel.setPreferredSize(new Dimension(800, 400));
         add(chartPanel);
@@ -97,10 +98,6 @@ public class Graph extends JPanel {
 
 	public void clear(XYSeries val) {
 		val.clear();
-	}
-
-	public DisplayThread getOscilloscopeThread() {
-		return oscThread;
 	}
 
 	public XYSeries channelOne() {
