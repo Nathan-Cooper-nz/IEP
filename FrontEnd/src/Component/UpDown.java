@@ -5,6 +5,10 @@ import java.awt.GridLayout;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 
+/*
+ * Creates a set of two buttons to control the increasing and decreasing of FG functions
+ */
+
 public class UpDown {
 	
 	private JButton up;
@@ -30,6 +34,7 @@ public class UpDown {
 		upDown.add(down);
 		return upDown;
 	}
+	
 
 	public static class DirectionPad extends JPanel{
 
