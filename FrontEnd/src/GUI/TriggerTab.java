@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+/*
+ * Set of radio buttons that give the user options to adjust the trigger level on the graph
+ */
+
 public class TriggerTab extends JPanel{
 
 	public TriggerTab(){

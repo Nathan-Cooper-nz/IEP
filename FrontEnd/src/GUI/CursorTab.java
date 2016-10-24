@@ -38,8 +38,8 @@ public class CursorTab extends JPanel{
         });
         upper.add(ampOrTime);
         
-    	JPanel left = getSubCurserPanel("Cursor 1", true);
-    	JPanel right = getSubCurserPanel("Cursor 2", false);
+    	JPanel left = getSubCursorPanel("Cursor 1", true);
+    	JPanel right = getSubCursorPanel("Cursor 2", false);
 
     	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
@@ -52,7 +52,7 @@ public class CursorTab extends JPanel{
 	 * @param isLeft Determine if the panel goes on the left or right
 	 * @return A JPanel containing all necessary components
 	 */
-	public JPanel getSubCurserPanel(String channel, boolean isLeft){
+	public JPanel getSubCursorPanel(String channel, boolean isLeft){
     	JPanel panel = new JPanel();
     	GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);

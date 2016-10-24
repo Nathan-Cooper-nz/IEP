@@ -47,8 +47,6 @@ public class FunctionOptions extends JPanel {
 	public JPanel getButtons(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		//panel.setLayout(new GridLayout(16,1));
-		//panel.setLayout(new GridLayout(5 ,0));
 
 		JLabel title = new  JLabel ("Function Generator");
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -86,9 +84,7 @@ public class FunctionOptions extends JPanel {
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		panel.add(spinnerPanel());
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
-		//panel.add(waveShape);        
-
-		//panel.add(upDownPanel());	
+		
 		return panel;
 	}
 
