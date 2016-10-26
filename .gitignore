@@ -142,3 +142,8 @@ ENV/
 
 # extracted Jfreechart library
 jfreechart-1.0.19/
+
+# Intellij files
+.idea/
+/FrontEnd/FrontEnd.iml
+/out/

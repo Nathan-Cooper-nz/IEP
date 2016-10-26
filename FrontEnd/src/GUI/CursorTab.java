@@ -1,9 +1,9 @@
-package Oscilloscope;
+package GUI;
 
-import java.awt.BorderLayout;
+import Component.UpDown;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicArrowButton;
 
 public class CursorTab extends JPanel{
 //./
@@ -39,20 +38,27 @@ public class CursorTab extends JPanel{
         });
         upper.add(ampOrTime);
         
-    	JPanel left = getSubCurserPanel("Cursor 1", true);
-    	JPanel right = getSubCurserPanel("Cursor 2", false);
+    	JPanel left = getSubCursorPanel("Cursor 1", true);
+    	JPanel right = getSubCursorPanel("Cursor 2", false);
 
     	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
     }
-    
-    public JPanel getSubCurserPanel(String channel, boolean isLeft){
+
+	/**
+	 * There should be a cursor tab for channel 1 and 2 and this is the
+	 * helper method to return these JPanels
+	 * @param channel The title to be displayed at the top of the panel
+	 * @param isLeft Determine if the panel goes on the left or right
+	 * @return A JPanel containing all necessary components
+	 */
+	public JPanel getSubCursorPanel(String channel, boolean isLeft){
     	JPanel panel = new JPanel();
     	GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
     	
     	JLabel label = new JLabel(channel);
-    	JPanel dPad = new DirectionPad();
+    	JPanel dPad = new UpDown.DirectionPad();
     	
     	JPanel pad = new JPanel();
     	pad.setLayout(new GridBagLayout());

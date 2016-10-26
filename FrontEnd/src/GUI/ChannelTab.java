@@ -1,22 +1,17 @@
-package Oscilloscope;
+package GUI;
+
+import Component.UpDown;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTextArea;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class ChannelTab extends JPanel{
 
@@ -27,17 +22,19 @@ public class ChannelTab extends JPanel{
     	GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
     	
-    	JPanel left = getSubVoltagePanel("Channel 1", true);
-    	JPanel right = getSubVoltagePanel("Channel 2", false);
+    	JPanel left = getSubVoltagePanel("Channel 1");
+    	JPanel right = getSubVoltagePanel("Channel 2");
         
     	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
     }
-    
-    /*
-     * sub method to get the voltages for each channel
-     */
-    public JPanel getSubVoltagePanel(String name, boolean isLeft){
+
+	/**
+	 * Method to get a panel containing all buttons needed for one of the channels
+	 * @param name A text to be displayed at the top of the panel
+	 * @return A panel containing all necessary components for each channel
+	 */
+	public JPanel getSubVoltagePanel(String name) {
     	JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
@@ -94,7 +91,7 @@ public class ChannelTab extends JPanel{
         probePanel.add(lowProbe);
         probePanel.add(highProbe);
         
-        JPanel dPad = new DirectionPad();
+        JPanel dPad = new UpDown.DirectionPad();
         
     	JPanel right = new JPanel();   	
         right.setLayout(new GridBagLayout());
