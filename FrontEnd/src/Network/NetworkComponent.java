@@ -8,8 +8,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public abstract class NetworkComponent extends Thread{
 	
-	public static final int PACKETSIZE = 1024*3;
-	public static final int BUFFERSIZE = 100;
+	public static final int PACKETSIZE = 1024*1000;
+	public static final int BUFFERSIZE = 1000000;
 	
 	protected DatagramSocket socket;
 	protected InetAddress IP;
