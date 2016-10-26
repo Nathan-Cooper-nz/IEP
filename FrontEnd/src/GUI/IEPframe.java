@@ -35,7 +35,7 @@ public class IEPframe extends JFrame {
 
         // Create the displays
         graph = new Graph(this);
-        oscOptions = new OscilloscopeOptions();
+        oscOptions = new OscilloscopeOptions(network);
 
         oscMeasure = new MeasureDisplay();
         fGenOptions = new FunctionOptions(network);
