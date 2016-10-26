@@ -4,6 +4,8 @@ import GUI.CursorTab;
 import GUI.MeasureTab;
 import GUI.TriggerTab;
 
+import Network.Network;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.Border;
@@ -25,8 +27,8 @@ public class OscilloscopeOptions extends JTabbedPane {
 	private CursorTab cursor;
 	private MeasureTab measure;
 	
-    public OscilloscopeOptions(){    
-    	channel = new ChannelTab();
+    public OscilloscopeOptions(Network net){
+    	channel = new ChannelTab(net);
     	trigger = new TriggerTab();
     	cursor = new CursorTab();
     	measure = new MeasureTab();

@@ -1,6 +1,9 @@
 package GUI;
 
+import Component.Channel;
 import Component.UpDown;
+
+import Network.Network;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,15 +18,26 @@ import javax.swing.border.EmptyBorder;
 
 public class ChannelTab extends JPanel{
 
-	private int voltageOne;
-	private int voltageTwo;
-	
-	public ChannelTab(){
+	private static String CHANNEL_ONE = "Channel one";
+	private static String CHANNEL_TWO = "Channel tne";
+
+
+	private Channel channelOne;
+	private Channel channelTwo;
+
+	private Network net;
+
+	public ChannelTab(Network net){
+		this.net = net;
+
     	GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
-    	
-    	JPanel left = getSubVoltagePanel("Channel 1");
-    	JPanel right = getSubVoltagePanel("Channel 2");
+
+		channelOne = new Channel(CHANNEL_ONE);
+		channelTwo = new Channel(CHANNEL_TWO);
+
+    	JPanel left = getSubVoltagePanel(channelOne.getName());
+    	JPanel right = getSubVoltagePanel(channelTwo.getName());
         
     	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
     	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
@@ -134,4 +148,8 @@ public class ChannelTab extends JPanel{
     	gbc.weighty = weightY;
     	panel.add(component, gbc);	
     }
+
+    public enum Coupling { AC, DC }
+
+	public enum Probe { OneTimes, TenTimes}
 }
