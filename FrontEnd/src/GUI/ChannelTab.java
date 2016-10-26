@@ -1,6 +1,7 @@
 package GUI;
 
 import Component.Channel;
+import Component.DirectionPad;
 import Component.UpDown;
 
 import Network.Network;
@@ -105,7 +106,7 @@ public class ChannelTab extends JPanel{
         probePanel.add(lowProbe);
         probePanel.add(highProbe);
         
-        JPanel dPad = new UpDown.DirectionPad();
+        JPanel dPad = new DirectionPad();
         
     	JPanel right = new JPanel();   	
         right.setLayout(new GridBagLayout());

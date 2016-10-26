@@ -1,5 +1,6 @@
 package GUI;
 
+import Component.DirectionPad;
 import Component.UpDown;
 
 import java.awt.GridBagConstraints;
@@ -58,7 +59,7 @@ public class CursorTab extends JPanel{
         panel.setLayout(layout);
     	
     	JLabel label = new JLabel(channel);
-    	JPanel dPad = new UpDown.DirectionPad();
+    	JPanel dPad = new DirectionPad();
     	
     	JPanel pad = new JPanel();
     	pad.setLayout(new GridBagLayout());
