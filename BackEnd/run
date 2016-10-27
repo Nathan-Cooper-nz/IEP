@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 reset
-gcc -lftdi spimodule.c -o spimodule
+# gcc -lftdi spimodule.c -o spimodule
+# ./spimodule | python middleWare.py
+
+gcc -lm placeboFuncGen/sin.c -o spimodule
+
 ./spimodule | python middleWare.py
