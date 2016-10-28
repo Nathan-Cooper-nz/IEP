@@ -35,7 +35,7 @@ class Trigger:
             if(time.time()-self.delayStart >= self.delay or self.delayStart==0):
                 self.window.append(data)
                 self.record = True
-                # print("Start Record")
+                print("Start Record")
 
 
     def addToWindow(self, data):
@@ -55,7 +55,7 @@ class Trigger:
             self.old_min = self.min
             self.old_max = self.max
             self.delayStart = time.time()
-            # print("Window Done")
+            print("Window Done")
         end = time.time()
 
         # print("Time to complete: " + str(end-start))

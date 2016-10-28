@@ -4,16 +4,13 @@
 
 int main(int argc, char const *argv[]) {
   double x = 0;
-  int amplitude = 3;
+  int amplitude = 7;
   int count = 0;
   double voltage = 0;
-  int sleepTimeMS = 10;
+  int sleepTimeMS = 30;
 
   while (1) {
-    if(count == 500){
-      amplitude = 7;
-    }
-    voltage = sin(180*x/3.14159) * amplitude;
+    voltage = sin(180*x/3.14159)>=0?amplitude:-1*amplitude;
     printf("%.2f\n", voltage * 1000.0);
 
     count++;
