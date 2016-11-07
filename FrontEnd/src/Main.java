@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import GUI.IEPframe;
-
 public class Main {
 	
     public static void main(String[] args) {

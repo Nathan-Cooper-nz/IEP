@@ -1,4 +1,4 @@
-package GUI;
+
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,6 +6,11 @@ import java.awt.GridBagLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import GUI.FunctionDisplay;
+import GUI.FunctionOptions;
+import Oscilloscope.OscilloscopeOptions;
+import Oscilloscope.OscilloscopePanel;
 
 public class IEPframe extends JFrame {
 
@@ -29,7 +34,7 @@ public class IEPframe extends JFrame {
         fGenDisplay = new FunctionDisplay();
         fGenOptions = new FunctionOptions();
         //Add displays to the frame
-        addComp(panel, oscDisplay, 0, 0, 1, 1, 0.65, 0.7);	//last 2 parameters change weightx and weighty
+        addComp(panel, oscDisplay, 0, 0, 1, 1, 0.65, 0.7);
         addComp(panel, oscOptions, 0, 1, 1, 1, 0.65, 0.3);
         addComp(panel, fGenOptions, 1, 0, 1, 1, 0.35, 0.7);
         addComp(panel, fGenDisplay, 1, 1, 1, 1, 0.35, 0.3);
@@ -53,7 +58,7 @@ public class IEPframe extends JFrame {
      * @param weightX specifies the GridBagConstraints.weightx
      * @param weightY specifies the GridBagConstraints.weighty
      */
-    private void addComp(JPanel panel, JComponent component,
+    public static void addComp(JPanel panel, JComponent component,
     		int x, int y, int width, int height, double weightX, double weightY){
     	GridBagConstraints gbc = new GridBagConstraints();
     	gbc.gridx = x;

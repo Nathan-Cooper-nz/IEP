@@ -1,64 +1,37 @@
-package GUI;
+package Oscilloscope;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class OscilloscopeOptions extends JTabbedPane {
+public class ChannelTab extends JPanel{
 
-	/*
-	public double timePerDiv;
-	private double triggerLevel;
+	private int voltageOne;
+	private int voltageTwo;
 	
-	//CHANNEL ONE
-	private double voltageOne;
-	private boolean isOnOne;
-	private Coupling couplingOne;
-	
-	//CHANNEL TWO
-	private double voltageTwo;
-	private boolean isOnTwo;
-	private Coupling couplingTwo;
-	*/
-	
-    public OscilloscopeOptions(){        
-        addTab("Volts/Div", getVoltsPanel());
-        addTab("Trigger", getTriggerPanel());
-        addTab("Cursor", getCurserPanel());
-        
-    	Border border = LineBorder.createGrayLineBorder();
-        setBorder(border);
-    }
-    
-    //=========== Voltage ===========//
-    public JPanel getVoltsPanel(){
-    	JPanel panel = new JPanel();
+	public ChannelTab(){
     	GridBagLayout layout = new GridBagLayout();
-        panel.setLayout(layout);
+        setLayout(layout);
     	
     	JPanel left = getSubVoltagePanel("Channel 1", true);
     	JPanel right = getSubVoltagePanel("Channel 2", false);
         
-    	addComp(panel, left, 0, 0, 1, 1, 0.5, 1);
-    	addComp(panel, right, 1, 0, 1, 1, 0.5, 1);
-    	
-    	return panel;
+    	addComp(this, left, 0, 0, 1, 1, 0.5, 1);
+    	addComp(this, right, 1, 0, 1, 1, 0.5, 1);
     }
     
     /*
@@ -68,17 +41,34 @@ public class OscilloscopeOptions extends JTabbedPane {
     	JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
+        panel.setBorder(new EmptyBorder(0, 10, 0, 10)); //give 10px padding on the L+R
     	
     	JLabel text = new JLabel(name);
     	
     	//voltage
     	JSlider slider = new JSlider(0, 30, 5); //format (min, max, default)
+    	JLabel voltLabel = new JLabel("Sec/Div");
+    	JTextArea voltValue = new JTextArea(1, 2);
+    	voltValue.setEditable(false);
+    	Border border = LineBorder.createGrayLineBorder();
+    	voltValue.setBorder(border);
+    	if (isLeft){
+    		voltageOne = slider.getValue();
+    	} else {
+    		voltageTwo = slider.getValue();
+    	}
+    	voltValue.setText(Integer.toString(slider.getValue()));
     	slider.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JSlider slider = (JSlider) e.getSource();
-				System.out.println("Slider chaneged to " + slider.getValue());
-				
+				JSlider s = (JSlider) e.getSource();
+				System.out.println("Slider chaneged to " + s.getValue());
+				if (isLeft){
+					voltageOne = s.getValue();
+				} else {
+					voltageTwo = s.getValue();
+				} 
+				voltValue.setText(Integer.toString(s.getValue()));
 			}
     	});
     	Hashtable<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
@@ -87,9 +77,9 @@ public class OscilloscopeOptions extends JTabbedPane {
     	slider.setLabelTable(labels);
     	slider.setPaintLabels(true);
     	JPanel sliderPanel = new JPanel();
-    	JLabel voltLabel = new JLabel("Voltage");
     	sliderPanel.add(voltLabel);
     	sliderPanel.add(slider);
+    	sliderPanel.add(voltValue);
     	
     	//Autoset
     	JButton auto = new JButton("Autoset");
@@ -117,16 +107,28 @@ public class OscilloscopeOptions extends JTabbedPane {
         		System.out.println("DC button pressed");
         	}
         });
-        JButton groundButton = new JButton("GROUND");	
-        groundButton.addActionListener(new ActionListener(){
-        	@Override
-        	public void actionPerformed(ActionEvent e){
-        		System.out.println("GOUND button pressed");
-        	}
-        });
         couplePanel.add(acButton);
         couplePanel.add(dcButton);
-        couplePanel.add(groundButton);
+        
+      //pProbe
+    	JPanel probePanel = new JPanel();
+    	probePanel.add(new JLabel("Probe"));
+    	JButton lowProbe = new JButton("1x");	
+        acButton.addActionListener(new ActionListener(){
+        	@Override
+        	public void actionPerformed(ActionEvent e){
+        		System.out.println("1x button pressed");
+        	}
+        });
+        JButton highProbe = new JButton("10x");	
+        dcButton.addActionListener(new ActionListener(){
+        	@Override
+        	public void actionPerformed(ActionEvent e){
+        		System.out.println("10x button pressed");
+        	}
+        });
+        probePanel.add(lowProbe);
+        probePanel.add(highProbe);
         
         //position slider
         JSlider posSlider = new JSlider(JSlider.VERTICAL, 0, 100, 50); //format (min, max, default)
@@ -139,69 +141,29 @@ public class OscilloscopeOptions extends JTabbedPane {
 			}
     	});
     	Hashtable<Integer, JComponent> posLabels = new Hashtable<Integer, JComponent>();
-    	posLabels.put(new Integer(0), new JLabel("0"));
-    	posLabels.put(new Integer(100), new JLabel("100"));
+    	posLabels.put(new Integer(0), new JLabel("L"));
+    	posLabels.put(new Integer(100), new JLabel("R"));
     	posSlider.setLabelTable(posLabels);
     	posSlider.setPaintLabels(true);
+    	
+    	
         
-    	JPanel right = new JPanel();
-    	right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));    	
-        addComp(right, auto, 0, 0, 1, 1, 1, 0.05);
+    	JPanel right = new JPanel();   	
+        right.setLayout(new GridBagLayout());
+    	addComp(right, auto, 0, 0, 1, 1, 1, 0.05);
         addComp(right, sliderPanel, 0, 1, 1, 1, 1, 0.1);
         addComp(right, couplePanel, 0, 2, 1, 1, 1, 0.2);
+        addComp(right, probePanel, 0, 3, 1, 1, 1, 0.2);
         
         addComp(panel, text, 0, 0, 1, 1, 1, 0.1);
-        addComp(panel, posSlider, 0, 1, 1, 1, 0.1, 0.9);
-        addComp(panel, right, 1, 1, 1, 1, 0.9, 0.9);
+        if (isLeft){
+        	addComp(panel, right, 0, 1, 1, 1, 0.9, 0.9);
+        	addComp(panel, posSlider, 1, 1, 1, 1, 0.1, 0.9);
+        } else {
+        	addComp(panel, posSlider, 0, 1, 1, 1, 0.1, 0.9);
+        	addComp(panel, right, 1, 1, 1, 1, 0.9, 0.9);
+        }
 
-    	return panel;
-    }
-    
-  //=========== Triggering ===========//
-    public JPanel getTriggerPanel(){
-    	JPanel panel = new JPanel();
-    	return panel;
-    }
-    
-  //=========== Curser ===========//
-    public JPanel getCurserPanel(){
-    	JPanel panel = new JPanel();
-    	GridBagLayout layout = new GridBagLayout();
-        panel.setLayout(layout);
-    	
-    	JPanel left = getSubCurserPanel("Channel 1", true);
-    	JPanel right = getSubCurserPanel("Channel 2", false);
-        
-    	addComp(panel, left, 0, 0, 1, 1, 0.5, 1);
-    	addComp(panel, right, 1, 0, 1, 1, 0.5, 1);
-    	
-    	return panel;
-    }
-    
-    public JPanel getSubCurserPanel(String channel, boolean isLeft){
-    	JPanel panel = new JPanel();
-    	GridBagLayout layout = new GridBagLayout();
-        panel.setLayout(layout);
-    	
-    	JLabel label = new JLabel(channel);
-    	JSlider slider = new JSlider(0, 100, 50); //format (min, max, default)
-    	slider.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider slider = (JSlider) e.getSource();
-				System.out.println("Slider chaneged to " + slider.getValue());
-				
-			}
-    	});
-    	Hashtable<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
-    	labels.put(new Integer(0), new JLabel("0"));
-    	labels.put(new Integer(50), new JLabel("50"));
-    	labels.put(new Integer(100), new JLabel("100"));
-    	slider.setLabelTable(labels);
-    	slider.setPaintLabels(true);
-    	
-    	addComp(panel, label, 0, 0, 1, 1, 1, 0.8);
-    	addComp(panel, slider, 0, 1, 1, 1, 1, 0.2);
     	return panel;
     }
     
@@ -228,15 +190,5 @@ public class OscilloscopeOptions extends JTabbedPane {
     	gbc.weightx = weightX;
     	gbc.weighty = weightY;
     	panel.add(component, gbc);	
-    }
-    
-    /**
-     * This just makes it clearer that there should always be a specific
-     * type of coupling
-     * @author nztyler
-     *
-     */
-    public enum Coupling {
-    	AC, DC, GROUND
     }
 }

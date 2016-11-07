@@ -1,4 +1,4 @@
-package GUI;
+package Oscilloscope;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -40,9 +40,14 @@ public class OscilloscopePanel extends JPanel{
         
         //add the oscilloscope display and buttons
         display = new OscilloscopeDisplay();
+        JPanel sidePanel = new JPanel();
+        sidePanel.setLayout(new GridBagLayout());
         
-        addComp(this, display , 0, 0, 1, 1, 1, 0.9);
-        addComp(this, getButtonPanel(), 1, 0, 1, 1, 1, 0.1);
+        addComp(sidePanel, getDataPanel(), 0, 0, 1, 1, 1, 0.9);
+        addComp(sidePanel, getButtonPanel(), 0, 1, 1, 1, 1, 0.1);
+        
+        addComp(this, display , 0, 0, 1, 1, 0.9, 1);
+        addComp(this, sidePanel, 1, 0, 1, 1, 0.1, 1);
     }
     
     public JPanel getButtonPanel(){
@@ -75,12 +80,35 @@ public class OscilloscopePanel extends JPanel{
         addComp(inner, saveButton, 0, 2, 1, 1, 1, 0.1);
         addComp(inner, emptyBox, 0, 3, 1, 1, 1, 0.1);
         
-        //inner.add(pause);
-        //inner.add(Box.createRigidArea(new Dimension(0,20)));
-        //inner.add(saveButton);
-        //inner.add(Box.createRigidArea(new Dimension(0,20)));
         buttonPanel.add(inner, BorderLayout.SOUTH);
         return buttonPanel;
+    }
+    
+    public JPanel getDataPanel(){
+    	JPanel panel = new JPanel();
+    	panel.setLayout(new GridBagLayout());
+    	
+    	JPanel first = getData("First");
+    	JPanel second = getData("Second");
+    	JPanel third = getData("Third");
+    	JPanel fourth = getData("Fourth");
+    	JPanel fifth = getData("Fifth");
+    	addComp(panel, first, 0, 0, 1, 1, 1, 0.2);
+    	addComp(panel, second, 0, 1, 1, 1, 1, 0.2);
+    	addComp(panel, third, 0, 2, 1, 1, 1, 0.2);
+    	addComp(panel, fourth, 0, 3, 1, 1, 1, 0.2);
+    	addComp(panel, fifth, 0, 4, 1, 1, 1, 0.2);
+    	
+    	return panel;
+    }
+    
+    public JPanel getData(String name){
+    	JPanel panel = new JPanel();
+    	Border border = LineBorder.createGrayLineBorder();
+        panel.setBorder(border);
+    	JLabel label = new JLabel(name);
+    	panel.add(label);
+    	return panel;
     }
     
     /**
