@@ -303,8 +303,8 @@ static int spi_wait(struct spi_context * fsc, uint8_t mask, uint8_t value, int m
 
 char *int2bin(int a, char *buffer, int buf_size) { //fucntion to output Binay values
     buffer += (buf_size - 1);                      //IT COULD BE WRONG...
-
-    for (int i = 24; i >= 0; i--) {
+    int i = 0;
+    for (i = 24; i >= 0; i--) {
         *buffer-- = (a & 1) + '0';
 
         a >>= 1;
