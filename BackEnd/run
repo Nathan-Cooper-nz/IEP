@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 reset
-# gcc -lftdi spimodule.c -o spimodule
-# ./spimodule | python middleWare.py
 
-gcc -lm placeboFuncGen/sin.c -o spimodule
-
-./spimodule | python middleWare.py
+if [ -f bin/spimodule ];
+then
+  ./bin/spimodule | python src/python/middleWare.py
+else
+  echo "File could not be found in bin/ please make sure it compiled correctly"
+fi
